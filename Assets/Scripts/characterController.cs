@@ -15,6 +15,7 @@ public class characterController : MonoBehaviour
     public int score = 0;
     private Rigidbody2D pRigidBody;
     private int ChestMax = 0;
+    private Animator anim;
 
     void OnGUI()
     {
@@ -26,6 +27,7 @@ public class characterController : MonoBehaviour
     {
         pRigidBody = GetComponent<Rigidbody2D>();
         ChestMax = GameObject.FindGameObjectsWithTag("Chest").Length;
+        anim = GetComponent<Animator>();
     }
 
     bool IsGrounded()
@@ -66,6 +68,7 @@ public class characterController : MonoBehaviour
         grounded = IsGrounded();
         //grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         move = Input.GetAxis("Horizontal");
+        anim.SetFloat("Speed", Mathf.Abs(move));
     }
 
     void Update()
