@@ -1,25 +1,31 @@
 fileFormatVersion: 2
-guid: c8df48dcbb65b064db992f292764663f
+guid: f9541186c17e8ef40ab2f3ad4fdad291
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7460046300004610927
-    second: Jump_0
+      213: 6895495282096838205
+    second: Enemy_1_0
   - first:
-      213: 7034338576483803127
-    second: Jump_1
+      213: 7875412785990629474
+    second: Enemy_1_1
   - first:
-      213: 6054277451648750542
-    second: Jump_2
+      213: -8210059557235754342
+    second: Enemy_1_2
   - first:
-      213: 6937500446539429301
-    second: Jump_3
+      213: -7309582927498218927
+    second: Enemy_1_3
   - first:
-      213: 3580086529375993838
-    second: Jump_4
+      213: -4980508039068410277
+    second: Enemy_1_4
   - first:
-      213: 3630178267427638470
-    second: Jump_5
+      213: -5295113303118211614
+    second: Enemy_1_5
+  - first:
+      213: -1835152398920951053
+    second: Enemy_1_6
+  - first:
+      213: -4202294216434390414
+    second: Enemy_1_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -63,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 40
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -128,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump_0
+      name: Enemy_1_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 3
-        width: 49
-        height: 109
+        x: 24
+        y: 12
+        width: 34
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +148,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 174ba6ff3eb41b442af11f64ee5bdb38
-      internalID: 7460046300004610927
+      spriteID: 9d98f67929832bc4295b0183bab8d299
+      internalID: 6895495282096838205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_1
+      name: Enemy_1_1
       rect:
         serializedVersion: 2
-        x: 73
-        y: 15
-        width: 48
-        height: 109
+        x: 88
+        y: 12
+        width: 35
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7fc095c43fc869d458e8b40b32449e95
-      internalID: 7034338576483803127
+      spriteID: 523d7290bd843634b92bd81ce4932006
+      internalID: 7875412785990629474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_2
+      name: Enemy_1_2
       rect:
         serializedVersion: 2
-        x: 142
-        y: 64
-        width: 55
-        height: 100
+        x: 154
+        y: 12
+        width: 34
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +190,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f6bd9dd65176af4c96bf2cbd95955c4
-      internalID: 6054277451648750542
+      spriteID: 3c342006e0d06f24ab57daf49b16e30b
+      internalID: -8210059557235754342
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_3
+      name: Enemy_1_3
       rect:
         serializedVersion: 2
-        x: 215
-        y: 23
-        width: 48
-        height: 110
+        x: 219
+        y: 12
+        width: 34
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +211,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7cb73691c712bcb4b9f917f0b35650da
-      internalID: 6937500446539429301
+      spriteID: 3e813e68b1309df44967df6ed3481c69
+      internalID: -7309582927498218927
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_4
+      name: Enemy_1_4
       rect:
         serializedVersion: 2
-        x: 287
-        y: 2
-        width: 50
-        height: 103
+        x: 284
+        y: 12
+        width: 34
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,20 +232,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e08843656aee0c345b226ba7debe0788
-      internalID: 3580086529375993838
+      spriteID: c9bcab034571c994ea4a137fb9664be0
+      internalID: -4980508039068410277
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_5
+      name: Enemy_1_5
       rect:
         serializedVersion: 2
-        x: 217
-        y: 0
-        width: 7
-        height: 5
+        x: 348
+        y: 12
+        width: 35
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,8 +253,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e7cc849551242146b4b004252292b73
-      internalID: 3630178267427638470
+      spriteID: 3974a56678e14854aa330f2f731e8968
+      internalID: -5295113303118211614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_1_6
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 12
+        width: 35
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f366b6dcb2613594e9be001fc336a859
+      internalID: -1835152398920951053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_1_7
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 12
+        width: 34
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aa57d5c10ccd07489dfd3ac9dab6707
+      internalID: -4202294216434390414
       vertices: []
       indices: 
       edges: []

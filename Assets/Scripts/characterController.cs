@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class characterController : MonoBehaviour
@@ -16,9 +17,16 @@ public class characterController : MonoBehaviour
     private Rigidbody2D pRigidBody;
     private int ChestMax = 0;
     private Animator anim;
+    private float miy = 0;
+    private float may = 0;
 
     void OnGUI()
     {
+        float y = GetComponent<Rigidbody2D>().velocity.y;
+        if (y > may)
+            may = y;
+        if (y < miy)
+            miy = y;
         GUI.Box(new Rect(0, 0, 100, 100), "Score: " + score + "/" + ChestMax.ToString());
     }
 
@@ -40,22 +48,24 @@ public class characterController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log("OnTriggerEnter2D: " + col.gameObject.name);
-        if (col.gameObject.name == "Chest")
+        if (col.gameObject.tag == "Chest")
         {
             Destroy(col.gameObject);
             score++;
         }
 
-        if (col.gameObject.name == "endLevel")
+        if (col.gameObject.tag == "Finish")
         {
-            if (!(GameObject.Find("Chest"))) Application.LoadLevel("scene2");
-        }        
+            //if (!(GameObject.Find("Chest"))) Application.LoadLevel("scene2");
+            if (score >= ChestMax) SceneManager.LoadScene("scene2", LoadSceneMode.Single);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Enemy")
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //Application.LoadLevel(Application.loadedLevel);
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -69,6 +79,8 @@ public class characterController : MonoBehaviour
         //grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         move = Input.GetAxis("Horizontal");
         anim.SetFloat("Speed", Mathf.Abs(move));
+        anim.SetBool("Ground", grounded);
+        anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
     }
 
     void Update()
@@ -91,7 +103,8 @@ public class characterController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.R))
         {
-            Application.LoadLevel(Application.loadedLevel);
+            //Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
