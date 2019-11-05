@@ -64,7 +64,24 @@ public class characterController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Enemy")
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        {
+            if (!col.gameObject.GetComponent<walkingEnemy>().dead)
+            {
+                if (col.contacts[0].collider.GetType() == typeof(CapsuleCollider2D)) //Hero grounded on the head of monster
+                {
+                    col.gameObject.GetComponent<walkingEnemy>().dead = true;
+                    foreach (Collider c in col.gameObject.GetComponent<walkingEnemy>().GetComponents<Collider>())
+                    {
+                        c.enabled = false;
+                    }
+                    Destroy(col.gameObject, 1f);
+                    //Debug.Log("Destroy " + col.gameObject.name);
+                }
+                else
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            //Debug.Log(col.contacts[0].collider.GetType());
+        }
             //Application.LoadLevel(Application.loadedLevel);
     }
 
