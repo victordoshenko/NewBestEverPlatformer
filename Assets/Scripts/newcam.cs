@@ -21,6 +21,5 @@ public class newcam : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
             //background.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f);
         }
-
     }
 }

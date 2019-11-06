@@ -75,7 +75,7 @@ public class characterController : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             //Debug.Log(col.contacts[0].collider.GetType());
         }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             //Application.LoadLevel(Application.loadedLevel);
     }
 
