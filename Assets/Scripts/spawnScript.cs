@@ -10,6 +10,7 @@ public class spawnScript : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("spawnScript.Start!");
         instance = this;
     }
 
@@ -18,3 +19,4 @@ public class spawnScript : MonoBehaviour
         Instantiate(deathAnimation, position, Quaternion.identity);
     }
 }
+//spawnScript.instance.SpawnDeathAnimation (transform.position);

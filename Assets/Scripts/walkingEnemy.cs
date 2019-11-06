@@ -6,23 +6,23 @@ public class walkingEnemy : MonoBehaviour
     public float speed = 2f;
     float direction = -1f;
     private Rigidbody2D pRigidBody;
-    public bool dead = false;
-    private Animator anim;
-
     void Start()
     {
         pRigidBody = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
+        /*
         if (dead)
         {
-            anim.SetBool("Dead", dead);
-            pRigidBody.velocity = Vector2.zero;
+            //anim.SetBool("Dead", dead);
+            //pRigidBody.velocity = Vector2.zero;
+            anim.Play("EnemyDeath");
+            Destroy(this);
             return;
         }
+        */
         pRigidBody.velocity = new Vector2(speed * direction, pRigidBody.velocity.y);
         transform.localScale = new Vector3(direction, 1, 1);
 
