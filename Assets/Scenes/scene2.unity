@@ -423,7 +423,7 @@ PrefabInstance:
     - target: {fileID: 693982562623615695, guid: d9423d27ae7060749b1f09eb2984d346,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 693982562623615695, guid: d9423d27ae7060749b1f09eb2984d346,
         type: 3}
@@ -587,7 +587,7 @@ PrefabInstance:
     - target: {fileID: 693982562623615695, guid: d9423d27ae7060749b1f09eb2984d346,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 693982562623615695, guid: d9423d27ae7060749b1f09eb2984d346,
         type: 3}
@@ -711,7 +711,7 @@ Transform:
   - {fileID: 1148292435}
   - {fileID: 969190758}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1541647198
 MonoBehaviour:
@@ -741,7 +741,6 @@ GameObject:
   - component: {fileID: 1884397038}
   - component: {fileID: 1884397042}
   - component: {fileID: 1884397043}
-  - component: {fileID: 1884397044}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -762,7 +761,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.12}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -773,7 +772,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.92, y: 0.82}
+  m_Size: {x: 0.92, y: 1.19}
   m_EdgeRadius: 0
 --- !u!212 &1884397039
 SpriteRenderer:
@@ -893,22 +892,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   dead: 0
---- !u!70 &1884397044
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884397037}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.4}
-  m_Size: {x: 0.83, y: 0.14}
-  m_Direction: 1
 --- !u!1001 &6041151585811927840
 PrefabInstance:
   m_ObjectHideFlags: 0
