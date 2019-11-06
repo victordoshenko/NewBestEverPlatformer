@@ -6,9 +6,11 @@ public class walkingEnemy : MonoBehaviour
     public float speed = 2f;
     float direction = -1f;
     private Rigidbody2D pRigidBody;
-    void Start()
+
+    void Awake()
     {
         pRigidBody = GetComponent<Rigidbody2D>();
+        direction =  1-Random.Range(0,2)*2;
     }
 
     //public LineRenderer l;
