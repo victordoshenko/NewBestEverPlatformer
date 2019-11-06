@@ -20,6 +20,8 @@ public class characterController : MonoBehaviour
     private float miy = 0;
     private float may = 0;
 
+    public GameObject deathAnimation;
+
     void OnGUI()
     {
         float y = GetComponent<Rigidbody2D>().velocity.y;
@@ -67,8 +69,16 @@ public class characterController : MonoBehaviour
         {
             if (col.contacts[0].collider.GetType() == typeof(CapsuleCollider2D)) //Hero grounded on the head of monster
             {
+                //spawnScript ss = new spawnScript();
+                //ss.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y - 1.2f));
+                //ss.deathAnimation = this.deathAnimation;
                 spawnScript.instance.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y - 1.2f));
+
+                //GameObject o = new GameObject();
+                //spawnScript.instance.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y - 1.2f));
+                //o = Instantiate(spawnScript.instance.deathAnimation, transform.position, Quaternion.identity);
                 Destroy(col.gameObject);
+                //Destroy(o, 1f);
                 //Debug.Log("Destroy " + col.gameObject.name);
             }
             else
