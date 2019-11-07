@@ -58,7 +58,6 @@ public class characterController : MonoBehaviour
 
         if (col.gameObject.tag == "Finish")
         {
-            //if (!(GameObject.Find("Chest"))) Application.LoadLevel("scene2");
             if (score >= ChestMax) SceneManager.LoadScene("scene2", LoadSceneMode.Single);
         }
     }
@@ -69,31 +68,18 @@ public class characterController : MonoBehaviour
         {
             if (col.contacts[0].collider.GetType() == typeof(CapsuleCollider2D)) //Hero grounded on the head of monster
             {
-                //spawnScript ss = new spawnScript();
-                //ss.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y - 1.2f));
-                //ss.deathAnimation = this.deathAnimation;
                 spawnScript.instance.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y - 1.2f));
-
-                //GameObject o = new GameObject();
-                //spawnScript.instance.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y - 1.2f));
-                //o = Instantiate(spawnScript.instance.deathAnimation, transform.position, Quaternion.identity);
                 Destroy(col.gameObject);
-                //Destroy(o, 1f);
-                //Debug.Log("Destroy " + col.gameObject.name);
             }
             else
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //Debug.Log(col.contacts[0].collider.GetType());
         }
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //Application.LoadLevel(Application.loadedLevel);
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         grounded = IsGrounded();
@@ -124,7 +110,6 @@ public class characterController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.R))
         {
-            //Application.LoadLevel(Application.loadedLevel);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
