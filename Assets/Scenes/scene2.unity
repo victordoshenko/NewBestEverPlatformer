@@ -203,6 +203,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5316088769838091850, guid: a8322854a9e91d94d9873cfd1e5d48ec,
         type: 3}
+    - target: {fileID: 3999106488584515714, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
+        type: 3}
+      propertyPath: l
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dfa78fb6a7f1844ea95225b5fed7226, type: 3}
 --- !u!4 &13308952 stripped
@@ -441,6 +446,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_GravityScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}

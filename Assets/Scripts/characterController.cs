@@ -4,10 +4,11 @@ using System.Collections;
 
 public class characterController : MonoBehaviour
 {
+    public int hp = 100;
     public float maxSpeed = 10f;
     public float jumpForce = 700f;
     bool facingRight = true;
-    bool grounded = true;
+    public bool grounded = true;
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask whatIsGround;
@@ -19,17 +20,19 @@ public class characterController : MonoBehaviour
     private Animator anim;
     private float miy = 0;
     private float may = 0;
+    public bool damaged = false;
 
-    public GameObject deathAnimation;
+    //public LineRenderer l;
+    //int len = 2;
 
     void OnGUI()
     {
-        float y = GetComponent<Rigidbody2D>().velocity.y;
+        float y = pRigidBody.velocity.y;
         if (y > may)
             may = y;
         if (y < miy)
             miy = y;
-        GUI.Box(new Rect(0, 0, 100, 100), "Score: " + score + "/" + ChestMax.ToString());
+        GUI.Box(new Rect(0, 0, 100, 100), "Score: " + score + "/" + ChestMax.ToString() + "  hp:" + hp.ToString());
     }
 
     // Use this for initialization
@@ -38,6 +41,8 @@ public class characterController : MonoBehaviour
         pRigidBody = GetComponent<Rigidbody2D>();
         ChestMax = GameObject.FindGameObjectsWithTag("Chest").Length;
         anim = GetComponent<Animator>();
+        //l.useWorldSpace = true;
+        //l.SetWidth(0.1f, 0.1f);
     }
 
     bool IsGrounded()
@@ -64,16 +69,28 @@ public class characterController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Enemy" && !damaged)
         {
-            if (col.contacts[0].collider.GetType() == typeof(CapsuleCollider2D)) //Hero grounded on the head of monster
+            if (col.contacts[0].collider.GetType() == typeof(CapsuleCollider2D) && col.gameObject.transform.position.y < transform.position.y - 0.2f) //Hero grounded on the head of monster
             {
                 spawnScript.instance.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y - 1.2f));
                 Destroy(col.gameObject);
             }
             else
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            {
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                damaged = true;
+                pRigidBody.velocity = new Vector2(5f * Mathf.Sign(transform.position.x - col.contacts[0].collider.transform.position.x), 10f);
+                StartCoroutine(GetDamage(10));
+            }
         }
+    }
+
+    IEnumerator GetDamage(int damage)
+    {
+        hp -= damage;
+        yield return new WaitForSeconds(2f);
+        damaged = false;
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -82,21 +99,25 @@ public class characterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //l.SetPosition(0, transform.position);
+        //l.SetPosition(1, transform.position + new Vector3(0, -0.85f, 0));
+
         grounded = IsGrounded();
+
         //grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         move = Input.GetAxis("Horizontal");
         anim.SetFloat("Speed", Mathf.Abs(move));
         anim.SetBool("Ground", grounded);
-        anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
-    }
+        anim.SetFloat("vSpeed", pRigidBody.velocity.y);
+        anim.SetBool("Damaged", damaged);
 
-    void Update()
-    {        
-        if (grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        if (!damaged && grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
+            pRigidBody.AddForce(new Vector2(0f, jumpForce));
         }
-        GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);        
+
+        if (!damaged)
+            pRigidBody.velocity = new Vector2(move * maxSpeed, pRigidBody.velocity.y);
 
         if (move > 0 && !facingRight)
             Flip();
