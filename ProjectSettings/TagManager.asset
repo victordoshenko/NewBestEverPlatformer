@@ -8,6 +8,7 @@ TagManager:
   - Chest
   - Enemy
   - Wall
+  - EnemyNeverDie
   layers:
   - Default
   - TransparentFX
