@@ -7,6 +7,8 @@ public class spawnScript : MonoBehaviour
     public GameObject deathAnimation;
 
     public static spawnScript instance;
+    public AudioSource audioSource;
+    public AudioClip dieEnemySound;
 
     void Start()
     {
@@ -15,6 +17,8 @@ public class spawnScript : MonoBehaviour
 
     public void SpawnDeathAnimation(Vector3 position)
     {
+        audioSource.clip = dieEnemySound;
+        audioSource.Play();
         GameObject c = Instantiate(deathAnimation, position, Quaternion.identity);
         StartCoroutine(Die(c));
     }

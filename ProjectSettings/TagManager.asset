@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Wall
   - EnemyNeverDie
+  - Die
   layers:
   - Default
   - TransparentFX
