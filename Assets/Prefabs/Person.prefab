@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3999106488289717912
 Transform:
@@ -46,10 +46,10 @@ GameObject:
   - component: {fileID: 3999106488584515727}
   m_Layer: 0
   m_Name: Person
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3999106488584515775
 Transform:
@@ -155,7 +155,7 @@ MonoBehaviour:
   jumpForce: 700
   grounded: 1
   groundCheck: {fileID: 3999106488289717912}
-  groundRadius: 0.2
+  groundRadius: 0.85
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
@@ -166,6 +166,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 57b89dc2e10e33f4d8fb041b1343b3e3, type: 3}
   damageSound: {fileID: 8300000, guid: 35fbad8cdde724f11ba6481f1e64af71, type: 3}
   dieSound: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
+  textTrigger: 
 --- !u!70 &3999106488584515726
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -216,7 +217,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4450223914947591448
 Transform:

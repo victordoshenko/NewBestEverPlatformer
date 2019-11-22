@@ -12,7 +12,7 @@ public class characterController : MonoBehaviour
     bool facingRight = true;
     public bool grounded = true;
     public Transform groundCheck;
-    public float groundRadius = 0.2f;
+    public float groundRadius = 0.85f; //0.2f;
     public LayerMask whatIsGround;
 
     public float move;
@@ -35,7 +35,7 @@ public class characterController : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip damageSound;
     public AudioClip dieSound;
-
+    private bool jump = false;
 
     void OnGUI()
     {
@@ -49,14 +49,22 @@ public class characterController : MonoBehaviour
         // Create style for a button
         GUIStyle myButtonStyle = new GUIStyle(GUI.skin.button);
         myButtonStyle.fontSize = 30;
+        GUIStyle myLabelStyle = new GUIStyle(GUI.skin.label);
+        myLabelStyle.fontSize = 40;
+
         // Load and set Font
         Font myFont = (Font)Resources.Load("Fonts/comic", typeof(Font));
         myButtonStyle.font = myFont;
+        myLabelStyle.font = myFont;
+
         // Set color for selected and unselected buttons
         myButtonStyle.normal.textColor = Color.green;
         myButtonStyle.hover.textColor = Color.green;
+        myLabelStyle.normal.textColor = Color.green;
+        myLabelStyle.hover.textColor = Color.green;
 
-        GUI.Box(new Rect(0, 0, 300, 50), "Score: " + score + "/" + ChestMax.ToString() + "  hp:" + hp.ToString(), myButtonStyle);
+        //GUI.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        GUI.Box(new Rect(0, 0, 300, 50), "Score: " + score + "/" + ChestMax.ToString() + "  hp:" + hp.ToString(), myLabelStyle);
         if (GUI.Button(new Rect(650, 0, 150, 50), "Restart", myButtonStyle))
         {
             isWin = false;
@@ -64,33 +72,29 @@ public class characterController : MonoBehaviour
         }
         if (isWin)
         {
-            myButtonStyle.fontSize = 80;
-            GUI.Box(new Rect(450, 300, 250, 100), "Win! :)", myButtonStyle);
-            myButtonStyle.fontSize = 30;
-            if (GUI.Button(new Rect(480, 400, 200, 70), "Play again", myButtonStyle))
+            //myButtonStyle.fontSize = 80;
+            GUI.Box(new Rect(450, 300, 250, 100), "Win! :)", myLabelStyle);
+            //myButtonStyle.fontSize = 30;
+            if (GUI.Button(new Rect(700, 300, 200, 70), "Play again", myButtonStyle))
             {
                 isWin = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
-
         }
-    }
-    private void checkJump()
-    {
-        if (!damaged && grounded && (isJumpDown || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)
-            ))
+        /*
+        if (grounded)
         {
-            pRigidBody.AddForce(new Vector2(0f, jumpForce));
-            audioSource.clip = jumpSound;
-            audioSource.Play();
-            isJumpDown = false;
+            GUI.Box(new Rect(450, 100, 200, 50), "Grounded", myButtonStyle);
         }
-    }
-    public void JumpButtonClick()
-    {
-        isJumpDown = true;
-        checkJump();
-        //Debug.Log("JumpButtonClick");
+        */
+
+        if (Time.timeScale == 0.3f)
+        {
+            //myButtonStyle.fontSize = 40;
+            //myButtonStyle.normal.textColor = Color.yellow;
+            //myButtonStyle.hover.textColor = Color.yellow;
+            GUI.Box(new Rect(450, 150, 400, 80), "Slow motion mode ON", myLabelStyle);
+        }
     }
 
     // Use this for initialization
@@ -103,13 +107,15 @@ public class characterController : MonoBehaviour
         //l.useWorldSpace = true;
         //l.SetWidth(0.1f, 0.1f);
     }
-
+    
+    /*
     bool IsGrounded()
     {
         LayerMask maskGround = LayerMask.GetMask("Ground");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.85f, maskGround);
         return (hit.transform != null);
     }
+    */
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -195,29 +201,68 @@ public class characterController : MonoBehaviour
         }
         damaged = false;
     }
-
+/*
     void OnCollisionExit2D(Collision2D collision)
     {
     }
+*/
+    private void checkJump()
+    {
+        //bool jumpPressed = SimpleInput.GetKeyDown(KeyCode.W) || SimpleInput.GetKeyDown(KeyCode.UpArrow); //|| isJumpDown;
+        if (!damaged && grounded && (SimpleInput.GetKeyDown(KeyCode.W) || SimpleInput.GetKeyDown(KeyCode.UpArrow) || isJumpDown)) //isJumpDown
+        {
+            jump = true;
+            isJumpDown = false;
+        }
+        /*
+                else if (jumpPressed)
+                {
+                    Debug.Log("Jump pressed, by can't fly! :(   Grounded = " + grounded.ToString());
+                }
+        */
+    }
+    public void JumpButtonClick()
+    {
+        //checkJump();
+        isJumpDown = true;
+        //Debug.Log("JumpButtonClick");
+    }
 
+    void Update()
+    {
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        checkJump();
+
+        /*
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        */
+        if (SimpleInput.GetKey(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+    }
+
+    //void FixedUpdate()
     void FixedUpdate()
     {
         //l.SetPosition(0, transform.position);
         //l.SetPosition(1, transform.position + new Vector3(0, -0.85f, 0));
 
-        grounded = IsGrounded();
+        //grounded = IsGrounded();
 
-        //grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        //checkJump();
         //move = Input.GetAxis("Horizontal");
         move = SimpleInput.GetAxis("Horizontal");
-
 
         anim.SetFloat("Speed", Mathf.Abs(move));
         anim.SetBool("Ground", grounded);
         anim.SetFloat("vSpeed", pRigidBody.velocity.y);
         anim.SetBool("Damaged", damaged);
 
-        //checkJump();
         
         /*
         if (!damaged && grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
@@ -235,16 +280,19 @@ public class characterController : MonoBehaviour
             Flip();
 
         /*
-        if (Input.GetKey(KeyCode.Escape))
+        if (SimpleInput.GetKeyDown(KeyCode.W))
         {
-            Application.Quit();
-        }
-
-        if (Input.GetKey(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Debug.Log("Jump!");
         }
         */
+        if (jump)
+        {
+            pRigidBody.AddForce(new Vector2(0f, jumpForce));
+            //isJumpDown = false;
+            audioSource.clip = jumpSound;
+            audioSource.Play();
+            jump = false;
+        }
     }
 
     void Flip()
