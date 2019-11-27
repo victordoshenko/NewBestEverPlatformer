@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
@@ -64,7 +65,7 @@ public class characterController : MonoBehaviour
         myLabelStyle.hover.textColor = Color.green;
 
         //GUI.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-        GUI.Box(new Rect(0, 0, 300, 50), "Score: " + score + "/" + ChestMax.ToString() + "  hp:" + hp.ToString(), myLabelStyle);
+        GUI.Box(new Rect(0, 0, 800, 50), "Score: " + score + "/" + ChestMax.ToString() + "  hp:" + hp.ToString() + "  t" +  DateTime.Now.Millisecond.ToString(), myLabelStyle);
         if (GUI.Button(new Rect(650, 0, 150, 50), "Restart", myButtonStyle))
         {
             isWin = false;

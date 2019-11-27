@@ -9,6 +9,7 @@ public class slowMotion : MonoBehaviour
         if (Time.timeScale >= 1.0f)
             Time.timeScale = 0.3f;
         else
+            if (Time.timeScale > 0f)
             Time.timeScale = 1.0f;
     }
 }

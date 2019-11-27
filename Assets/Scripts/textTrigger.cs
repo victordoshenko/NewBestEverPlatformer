@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class textTrigger : MonoBehaviour
 {
@@ -8,14 +9,28 @@ public class textTrigger : MonoBehaviour
     private string modalText = "";
     public int numberTextIntro = 0;
     public GameObject ButtonLeft;
-    public GameObject ButtonRigth;
+    public GameObject ButtonRight;
     public GameObject ButtonJump;
     public GameObject ButtonSlow;
     private LineRenderer l;
     public Canvas Canvas;
+    drawRect dr;
 
     void OnGUI()
     {
+/*
+        Vector3 blp = ButtonLeft.transform.position;
+        Vector3 brp = ButtonRight.transform.position;
+        Rect brc = ButtonRight.GetComponent<RectTransform>().rect;
+        Rect blc = ButtonLeft.GetComponent<RectTransform>().rect;
+        GUIStyle myButtonStyle2 = new GUIStyle(GUI.skin.button);
+        myButtonStyle2.fontSize = 16;
+
+        GUI.Box(new Rect(0, 50, 800, 100), "blp=("+blp.x.ToString()+","+blp.y.ToString()+") brp=("+ brp.x.ToString() + "," + brp.y.ToString() + ")  \n" +
+            " brc.h="+brc.height.ToString()+" brc.w="+brc.width.ToString() + " brc.x="+brc.x.ToString()+" brc.y="+brc.y.ToString()+"\n"+
+            " blc.h=" + blc.height.ToString() + " blc.w=" + blc.width.ToString() + " blc.x=" + blc.x.ToString() + " blc.y=" + blc.y.ToString()
+            , myButtonStyle2);
+*/        
         if (modalText != "")
         {
             GUIStyle myButtonStyle = new GUIStyle(GUI.skin.button);
@@ -23,7 +38,7 @@ public class textTrigger : MonoBehaviour
 
             if (numberTextIntro == 1)
             {
-                if (GUI.Button(new Rect(0, 0, Screen.width * 0.7f, Screen.height * 0.7f), modalText, myButtonStyle))
+                if (GUI.Button(new Rect(0, 0, Screen.width, Screen.height * 0.7f), modalText, myButtonStyle))
                 {
                     modalText = "";
                     textTriggerMessage = "";
@@ -36,45 +51,54 @@ public class textTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log("OnTriggerEnter2D!!!");
         if (col.gameObject.tag == "Player" && textTriggerMessage != "")
         {
             modalText = textTriggerMessage;
             Time.timeScale = 0f;
+            //dr.flashRect(Canvas, ButtonLeft, ButtonRight);
+            if (numberTextIntro == 1)
+            {
+                Debug.Log("OnTriggerEnter2D!");
+                dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
+                //dr.flashRect(Canvas, ButtonLeft, ButtonRight);
+                //drawRect dr = new drawRect(gameObject, Canvas, Color.white, ButtonLeft, ButtonRight, 0.1f);
+                //dr.drawRectangle(Color.yellow);
+            }
             //Destroy(col.gameObject);
         }
     }
 
     void Start()
     {
-        LineRenderer l = gameObject.AddComponent<LineRenderer>();
-        l.material = new Material(Shader.Find("Sprites/Default"));
-        l.startColor = Color.yellow;
-        l.endColor = Color.yellow;
-        //l.material.color = Color.yellow;
-        //l.positionCount = 2;
-        //l.useWorldSpace = true;
-        //l.SetWidth(0.1f, 0.1f);
+        //LineRenderer l = gameObject.AddComponent<LineRenderer>();
+        //l.sortingOrder = 10;
+        dr = gameObject.AddComponent<drawRect>(); //(Canvas, gameObject, Color.white, ButtonLeft, ButtonRight, 0.1f)
     }
 
     private void Update()
     {
-        LineRenderer l = GetComponent<LineRenderer>();
-        if (numberTextIntro == 1)
+        if (numberTextIntro == 1 && dr.timeFlash > 0f)
         {
-            l.positionCount = 5;
-            l.useWorldSpace = true;
-            //l.SetWidth(0.1f, 0.1f);
-            l.startWidth = 0.1f;
-            l.endWidth = 0.1f;
-            RectTransform rt = ButtonLeft.GetComponent<RectTransform>();
-            Vector3 p = ButtonLeft.transform.position;
-            l.SetPosition(0, p);
-            l.SetPosition(1, p + new Vector3(rt.rect.width * Canvas.GetComponent<RectTransform>().localScale.x , 0f, 0f));
-            l.SetPosition(2, p + new Vector3(rt.rect.width * Canvas.GetComponent<RectTransform>().localScale.x, -rt.rect.height * Canvas.GetComponent<RectTransform>().localScale.y, 0f));
-            l.SetPosition(3, p + new Vector3(0f, -rt.rect.height * Canvas.GetComponent<RectTransform>().localScale.y, 0f));
-            l.SetPosition(4, p);
+            dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
+            if ((DateTime.Now.Millisecond / 200) % 2 == 0)
+            {
+                dr.timeFlash -= 0.1f;
+                dr.l.startColor = Color.yellow;
+                dr.l.endColor = Color.yellow;
+
+            }
+            else
+            {
+                dr.l.startColor = Color.white;
+                dr.l.endColor = Color.white;
+
+            }
+
+            //Debug.Log("Update");
+            //dr.drawRectangle(Canvas, Color.yellow, ButtonLeft, ButtonRight);
+            //dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
+            //modalText = "";
         }
-        //l.SetPosition(0, Canvas.transform.position);
-        //l.SetPosition(1, Canvas.transform.position + new Vector3(100f, 100f, 0f));
     }
 }
