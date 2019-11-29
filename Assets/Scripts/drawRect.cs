@@ -10,7 +10,7 @@ public class drawRect : MonoBehaviour
     private GameObject lu;
     private GameObject rd;
     private float w;
-    public float timeFlash = 3f;
+    public int timeFlash = 20;
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class drawRect : MonoBehaviour
         this.l.useWorldSpace = true;
         this.l.startWidth = 0.1f;
         this.l.endWidth = 0.1f;
-        this.timeFlash = 3f;
+        this.timeFlash = 8;
     }
     public static void drawRectangle(Canvas Canvas, LineRenderer lr, Color c, Vector3 p, RectTransform rt, float w)
     {
@@ -93,7 +93,7 @@ public class drawRect : MonoBehaviour
         this.l.SetPosition(3, plu + new Vector3(0f, -ly, 0f));
         this.l.SetPosition(4, plu);
     }
-
+/*
     public void flashRect(Canvas Canvas, GameObject lu, GameObject rd)
     {
         StartCoroutine(doFlash(Canvas, lu, rd));
@@ -102,7 +102,7 @@ public class drawRect : MonoBehaviour
     IEnumerator doFlash(Canvas Canvas, GameObject lu, GameObject rd)
     {
         while (this.timeFlash > 0f) {
-            this.timeFlash -= 0.1f;
+            this.timeFlash -= 1;
             if ((int)(this.timeFlash*10)%2 == 0) {
                 this.l.startColor = Color.yellow;
                 this.l.endColor = Color.yellow;
@@ -116,4 +116,5 @@ public class drawRect : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
+*/
 }

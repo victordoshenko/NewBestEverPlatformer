@@ -15,6 +15,7 @@ public class textTrigger : MonoBehaviour
     private LineRenderer l;
     public Canvas Canvas;
     drawRect dr;
+    private int sdt = 0;
 
     void OnGUI()
     {
@@ -38,7 +39,7 @@ public class textTrigger : MonoBehaviour
 
             if (numberTextIntro == 1)
             {
-                if (GUI.Button(new Rect(0, 0, Screen.width, Screen.height * 0.7f), modalText, myButtonStyle))
+                if (GUI.Button(new Rect(0, 0, Screen.width, Screen.height * 0.75f), modalText, myButtonStyle))
                 {
                     modalText = "";
                     textTriggerMessage = "";
@@ -51,7 +52,7 @@ public class textTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("OnTriggerEnter2D!!!");
+        //Debug.Log("OnTriggerEnter2D!!! " + col.gameObject.name);
         if (col.gameObject.tag == "Player" && textTriggerMessage != "")
         {
             modalText = textTriggerMessage;
@@ -59,7 +60,7 @@ public class textTrigger : MonoBehaviour
             //dr.flashRect(Canvas, ButtonLeft, ButtonRight);
             if (numberTextIntro == 1)
             {
-                Debug.Log("OnTriggerEnter2D!");
+                //Debug.Log("OnTriggerEnter2D!");
                 dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
                 //dr.flashRect(Canvas, ButtonLeft, ButtonRight);
                 //drawRect dr = new drawRect(gameObject, Canvas, Color.white, ButtonLeft, ButtonRight, 0.1f);
@@ -78,21 +79,24 @@ public class textTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (numberTextIntro == 1 && dr.timeFlash > 0f)
+        if (numberTextIntro == 1 && dr.timeFlash > 0 && DateTime.Now.Millisecond / 100 != sdt)
         {
-            dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
-            if ((DateTime.Now.Millisecond / 200) % 2 == 0)
+            //Debug.Log("Update  " + DateTime.Now.Millisecond.ToString() + "  " + dr.timeFlash.ToString());            
+            sdt = DateTime.Now.Millisecond / 100;
+            
+            if (dr.timeFlash < 8)
+                dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
+            
+            if (sdt % 2 == 0 || dr.timeFlash == 1)
             {
-                dr.timeFlash -= 0.1f;
+                dr.timeFlash -= 1;
                 dr.l.startColor = Color.yellow;
                 dr.l.endColor = Color.yellow;
-
             }
             else
             {
-                dr.l.startColor = Color.white;
-                dr.l.endColor = Color.white;
-
+                dr.l.startColor = Color.clear;
+                dr.l.endColor = Color.clear;
             }
 
             //Debug.Log("Update");
