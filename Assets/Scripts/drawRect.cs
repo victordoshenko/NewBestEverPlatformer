@@ -10,8 +10,9 @@ public class drawRect : MonoBehaviour
     private GameObject lu;
     private GameObject rd;
     private float w;
-    public int timeFlash = 20;
+    public int timeFlash = 8;
 
+/*
     void Start()
     {
         this.l = gameObject.AddComponent<LineRenderer>();
@@ -25,6 +26,7 @@ public class drawRect : MonoBehaviour
         this.l.endWidth = 0.1f;
         this.timeFlash = 8;
     }
+*/
     public static void drawRectangle(Canvas Canvas, LineRenderer lr, Color c, Vector3 p, RectTransform rt, float w)
     {
         lr.material = new Material(Shader.Find("Sprites/Default"));
@@ -80,12 +82,22 @@ public class drawRect : MonoBehaviour
         Vector3 plu = lu.transform.position;
         Vector3 prd = rd.transform.position;
         Rect brc = rd.GetComponent<RectTransform>().rect;
-        float lx = brc.width * Canvas.GetComponent<RectTransform>().localScale.x + prd.x - plu.x;
-        float ly = brc.height * Canvas.GetComponent<RectTransform>().localScale.y + plu.y - prd.y;
-        
+        Rect blc = lu.GetComponent<RectTransform>().rect;
+
+        float lx;
+        float ly;
+        if (lu == rd || rd == null) {
+            lx = blc.width * Canvas.GetComponent<RectTransform>().localScale.x;
+            ly = blc.height * Canvas.GetComponent<RectTransform>().localScale.y;
+        }
+        else {
+            lx = brc.width * Canvas.GetComponent<RectTransform>().localScale.x + prd.x - plu.x;
+            ly = brc.height * Canvas.GetComponent<RectTransform>().localScale.y + plu.y - prd.y;
+        }
+
         //this.l.startColor = Color;
         //this.l.endColor = Color;
-        
+
         this.l.positionCount = 5;
         this.l.SetPosition(0, plu);
         this.l.SetPosition(1, plu + new Vector3(lx, 0f, 0f));

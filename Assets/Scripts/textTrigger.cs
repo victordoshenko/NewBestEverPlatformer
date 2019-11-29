@@ -7,11 +7,9 @@ public class textTrigger : MonoBehaviour
 {
     public string textTriggerMessage = "";
     private string modalText = "";
-    public int numberTextIntro = 0;
-    public GameObject ButtonLeft;
-    public GameObject ButtonRight;
-    public GameObject ButtonJump;
-    public GameObject ButtonSlow;
+    //public int numberTextIntro = 0;
+    public GameObject ButtonLU;
+    public GameObject ButtonRD;
     private LineRenderer l;
     public Canvas Canvas;
     drawRect dr;
@@ -20,10 +18,10 @@ public class textTrigger : MonoBehaviour
     void OnGUI()
     {
 /*
-        Vector3 blp = ButtonLeft.transform.position;
-        Vector3 brp = ButtonRight.transform.position;
-        Rect brc = ButtonRight.GetComponent<RectTransform>().rect;
-        Rect blc = ButtonLeft.GetComponent<RectTransform>().rect;
+        Vector3 blp = ButtonLU.transform.position;
+        Vector3 brp = ButtonRD.transform.position;
+        Rect brc = ButtonRD.GetComponent<RectTransform>().rect;
+        Rect blc = ButtonLU.GetComponent<RectTransform>().rect;
         GUIStyle myButtonStyle2 = new GUIStyle(GUI.skin.button);
         myButtonStyle2.fontSize = 16;
 
@@ -36,34 +34,63 @@ public class textTrigger : MonoBehaviour
         {
             GUIStyle myButtonStyle = new GUIStyle(GUI.skin.button);
             myButtonStyle.fontSize = 30;
+            myButtonStyle.wordWrap = true;
+            //myButtonStyle.richText = true;
 
-            if (numberTextIntro == 1)
+            //if (numberTextIntro == 1)
+            if (true)
             {
                 if (GUI.Button(new Rect(0, 0, Screen.width, Screen.height * 0.75f), modalText, myButtonStyle))
                 {
                     modalText = "";
                     textTriggerMessage = "";
                     Time.timeScale = 1f;
+                    Debug.Log("PressButton!");
+                    //Destroy(dr);
                     Destroy(this.gameObject);
+                    //Destroy(l);
                 }
             }
         }
     }
 
+/*
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Debug.Log("OnTriggerExit2D!");
+            Destroy(dr);
+            Destroy(this.gameObject);
+        }
+    }
+*/
     void OnTriggerEnter2D(Collider2D col)
     {
+        dr = gameObject.AddComponent<drawRect>(); //(Canvas, gameObject, Color.white, ButtonLU, ButtonRD, 0.1f)
+        dr.l = gameObject.AddComponent<LineRenderer>();
+        dr.l.sortingOrder = 10;
+        dr.l.material = new Material(Shader.Find("Sprites/Default"));
+        dr.l.startColor = Color.white;
+        dr.l.endColor = Color.white;
+        dr.l.positionCount = 0;
+        dr.l.useWorldSpace = true;
+        dr.l.startWidth = 0.1f;
+        dr.l.endWidth = 0.1f;
+        //dr.timeFlash = 8;
+
         //Debug.Log("OnTriggerEnter2D!!! " + col.gameObject.name);
         if (col.gameObject.tag == "Player" && textTriggerMessage != "")
         {
             modalText = textTriggerMessage;
             Time.timeScale = 0f;
-            //dr.flashRect(Canvas, ButtonLeft, ButtonRight);
-            if (numberTextIntro == 1)
+            //dr.flashRect(Canvas, ButtonLU, ButtonRD);
+            if (true)//(numberTextIntro == 1)
             {
                 //Debug.Log("OnTriggerEnter2D!");
-                dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
-                //dr.flashRect(Canvas, ButtonLeft, ButtonRight);
-                //drawRect dr = new drawRect(gameObject, Canvas, Color.white, ButtonLeft, ButtonRight, 0.1f);
+                dr.drawRectangle(Canvas, ButtonLU, ButtonRD);
+                //dr.flashRect(Canvas, ButtonLU, ButtonRD);
+                //drawRect dr = new drawRect(gameObject, Canvas, Color.white, ButtonLU, ButtonRD, 0.1f);
                 //dr.drawRectangle(Color.yellow);
             }
             //Destroy(col.gameObject);
@@ -74,18 +101,20 @@ public class textTrigger : MonoBehaviour
     {
         //LineRenderer l = gameObject.AddComponent<LineRenderer>();
         //l.sortingOrder = 10;
-        dr = gameObject.AddComponent<drawRect>(); //(Canvas, gameObject, Color.white, ButtonLeft, ButtonRight, 0.1f)
+        //dr = gameObject.AddComponent<drawRect>(); //(Canvas, gameObject, Color.white, ButtonLU, ButtonRD, 0.1f)
     }
 
     private void Update()
     {
-        if (numberTextIntro == 1 && dr.timeFlash > 0 && DateTime.Now.Millisecond / 100 != sdt)
+        if (dr != null)
+        if (dr.l != null)
+        if (/*numberTextIntro == 1 &&*/ dr.timeFlash > 0 && DateTime.Now.Millisecond / 100 != sdt)
         {
             //Debug.Log("Update  " + DateTime.Now.Millisecond.ToString() + "  " + dr.timeFlash.ToString());            
             sdt = DateTime.Now.Millisecond / 100;
             
             if (dr.timeFlash < 8)
-                dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
+                dr.drawRectangle(Canvas, ButtonLU, ButtonRD);
             
             if (sdt % 2 == 0 || dr.timeFlash == 1)
             {
@@ -100,8 +129,8 @@ public class textTrigger : MonoBehaviour
             }
 
             //Debug.Log("Update");
-            //dr.drawRectangle(Canvas, Color.yellow, ButtonLeft, ButtonRight);
-            //dr.drawRectangle(Canvas, ButtonLeft, ButtonRight);
+            //dr.drawRectangle(Canvas, Color.yellow, ButtonLU, ButtonRD);
+            //dr.drawRectangle(Canvas, ButtonLU, ButtonRD);
             //modalText = "";
         }
     }
