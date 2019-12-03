@@ -14,6 +14,7 @@ public class textTrigger : MonoBehaviour
     public Canvas Canvas;
     drawRect dr;
     private int sdt = 0;
+    public Camera cam;
 
     void OnGUI()
     {
@@ -36,11 +37,21 @@ public class textTrigger : MonoBehaviour
             myButtonStyle.fontSize = 30;
             myButtonStyle.wordWrap = true;
             //myButtonStyle.richText = true;
+            GUIStyle myLabelStyle = new GUIStyle(GUI.skin.label);
+            myLabelStyle.fontSize = 40;
+            myLabelStyle.normal.textColor = Color.yellow;
+            myLabelStyle.hover.textColor = Color.yellow;
 
             //if (numberTextIntro == 1)
             if (true)
             {
-                if (GUI.Button(new Rect(0, 0, Screen.width, Screen.height * 0.75f), modalText, myButtonStyle))
+                GUI.Box(new Rect(Screen.width / 10, Screen.height / 10, Screen.width * 0.8f, Screen.height * 0.8f), modalText, myLabelStyle);
+
+                float x = 0f, y = 0f, w = 0f, h = 0f;
+                if (cam != null)
+                    (x, y, w, h) = dr.getBoxPosition(cam, Canvas, ButtonLU, ButtonRD);
+
+                if (GUI.Button(new Rect(x, y, w, h), "", myButtonStyle))
                 {
                     modalText = "";
                     textTriggerMessage = "";
@@ -99,6 +110,7 @@ public class textTrigger : MonoBehaviour
 
     void Start()
     {
+        //cam = GetComponent<Camera>();
         //LineRenderer l = gameObject.AddComponent<LineRenderer>();
         //l.sortingOrder = 10;
         //dr = gameObject.AddComponent<drawRect>(); //(Canvas, gameObject, Color.white, ButtonLU, ButtonRD, 0.1f)

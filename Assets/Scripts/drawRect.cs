@@ -77,26 +77,61 @@ public class drawRect : MonoBehaviour
         lr.SetPosition(3, plu + new Vector3(0f, -ly, 0f));
         lr.SetPosition(4, plu);
     }
-    public void drawRectangle(Canvas Canvas, /*Color Color,*/ GameObject lu, GameObject rd)
+    
+    public (float, float) getRectPosition(Canvas Canvas, GameObject lu, GameObject rd)
     {
         Vector3 plu = lu.transform.position;
         Vector3 prd = rd.transform.position;
         Rect brc = rd.GetComponent<RectTransform>().rect;
         Rect blc = lu.GetComponent<RectTransform>().rect;
 
-        float lx;
-        float ly;
-        if (lu == rd || rd == null) {
+        float lx, ly;
+
+        if (lu == rd || rd == null)
+        {
             lx = blc.width * Canvas.GetComponent<RectTransform>().localScale.x;
             ly = blc.height * Canvas.GetComponent<RectTransform>().localScale.y;
         }
-        else {
+        else
+        {
             lx = brc.width * Canvas.GetComponent<RectTransform>().localScale.x + prd.x - plu.x;
             ly = brc.height * Canvas.GetComponent<RectTransform>().localScale.y + plu.y - prd.y;
         }
+        return (lx, ly);
+    }
+    
+    public (float, float, float, float) getBoxPosition(Camera cam, Canvas Canvas, GameObject lu, GameObject rd)
+    {
+        Vector3 plu = cam.WorldToScreenPoint(lu.transform.position);
+        Vector3 prd = cam.WorldToScreenPoint(rd.transform.position);
+        Rect brc = rd.GetComponent<RectTransform>().rect;
+        Rect blc = lu.GetComponent<RectTransform>().rect;
+        float x, y, w, h, s;
+        s = Canvas.scaleFactor;
+        x = plu.x; //Screen.width - plu.x ;
+        y = Screen.height - plu.y;
+        if (lu == rd || rd == null)
+        {
+            w = blc.width * s;
+            h = blc.height;
+        }
+        else
+        {
+            w = brc.width * s + prd.x - plu.x;
+            h = brc.height + plu.y - prd.y;
+        }
+        return (x, y, w, h * s);
+    }
 
-        //this.l.startColor = Color;
-        //this.l.endColor = Color;
+    public void drawRectangle(Canvas Canvas, GameObject lu, GameObject rd)
+    {
+        Vector3 plu = lu.transform.position;
+        Vector3 prd = rd.transform.position;
+        Rect brc = rd.GetComponent<RectTransform>().rect;
+        Rect blc = lu.GetComponent<RectTransform>().rect;
+
+        float lx, ly;
+        (lx, ly) = getRectPosition(Canvas, lu, rd);
 
         this.l.positionCount = 5;
         this.l.SetPosition(0, plu);
