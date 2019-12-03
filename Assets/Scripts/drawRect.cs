@@ -108,19 +108,19 @@ public class drawRect : MonoBehaviour
         Rect blc = lu.GetComponent<RectTransform>().rect;
         float x, y, w, h, s;
         s = Canvas.scaleFactor;
-        x = plu.x; //Screen.width - plu.x ;
+        x = plu.x;
         y = Screen.height - plu.y;
         if (lu == rd || rd == null)
         {
             w = blc.width * s;
-            h = blc.height;
+            h = blc.height * s;
         }
         else
         {
             w = brc.width * s + prd.x - plu.x;
-            h = brc.height + plu.y - prd.y;
+            h = brc.height * s + plu.y - prd.y;
         }
-        return (x, y, w, h * s);
+        return (x, y, w, h);
     }
 
     public void drawRectangle(Canvas Canvas, GameObject lu, GameObject rd)
