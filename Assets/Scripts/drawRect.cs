@@ -86,16 +86,22 @@ public class drawRect : MonoBehaviour
         Rect blc = lu.GetComponent<RectTransform>().rect;
 
         float lx, ly;
+        float cx = 1f, cy = 1f;
+        if (Canvas != null)
+        {
+            cx = Canvas.GetComponent<RectTransform>().localScale.x;
+            cy = Canvas.GetComponent<RectTransform>().localScale.y;
+        }
 
         if (lu == rd || rd == null)
         {
-            lx = blc.width * Canvas.GetComponent<RectTransform>().localScale.x;
-            ly = blc.height * Canvas.GetComponent<RectTransform>().localScale.y;
+            lx = blc.width * cx;
+            ly = blc.height * cy;
         }
         else
         {
-            lx = brc.width * Canvas.GetComponent<RectTransform>().localScale.x + prd.x - plu.x;
-            ly = brc.height * Canvas.GetComponent<RectTransform>().localScale.y + plu.y - prd.y;
+            lx = brc.width * cx + prd.x - plu.x;
+            ly = brc.height * cy + plu.y - prd.y;
         }
         return (lx, ly);
     }
@@ -106,8 +112,9 @@ public class drawRect : MonoBehaviour
         Vector3 prd = cam.WorldToScreenPoint(rd.transform.position);
         Rect brc = rd.GetComponent<RectTransform>().rect;
         Rect blc = lu.GetComponent<RectTransform>().rect;
-        float x, y, w, h, s;
-        s = Canvas.scaleFactor;
+        float x, y, w, h, s = 1f;
+        if (Canvas != null) 
+            s = Canvas.scaleFactor;
         x = plu.x;
         y = Screen.height - plu.y;
         if (lu == rd || rd == null)

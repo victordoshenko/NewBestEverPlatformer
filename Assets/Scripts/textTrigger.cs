@@ -56,7 +56,7 @@ public class textTrigger : MonoBehaviour
                     modalText = "";
                     textTriggerMessage = "";
                     Time.timeScale = 1f;
-                    Debug.Log("PressButton!");
+                    //Debug.Log("PressButton!");
                     //Destroy(dr);
                     Destroy(this.gameObject);
                     //Destroy(l);

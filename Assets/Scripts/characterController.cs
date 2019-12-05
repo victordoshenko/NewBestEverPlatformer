@@ -7,36 +7,35 @@ using UnityEngine.EventSystems;
 
 public class characterController : MonoBehaviour
 {
+    private GUIStyle myButtonStyle;
+    private GUIStyle myLabelStyle;
+    private bool facingRight = true;
+    private Rigidbody2D pRigidBody;
+    private int LetterMax = 0;
+    private Animator anim;
+    private bool isJumpDown = false;
+    private bool isWin = false;
+    private int enemyCnt = 0;
+    private bool jump = false;
+    private GameObject endLevel;
+    private Dictionary<char, int> letterFounded;
+    private string keyWordRich = "";
+
     public int hp = 100;
     public float maxSpeed = 10f;
     public float jumpForce = 700f;
-    bool facingRight = true;
     public bool grounded = true;
     public Transform groundCheck;
     public float groundRadius = 0.85f; //0.2f;
     public LayerMask whatIsGround;
-
     public float move;
     public int score = 0;
-    private Rigidbody2D pRigidBody;
-    private int ChestMax = 0;
-    private Animator anim;
-    //private float miy = 0;
-    //private float may = 0;
     public bool damaged = false;
-    //private bool isLeftDown = false;
-    //private bool isRightDown = false;
-    //public LineRenderer l;
-    //int len = 2;
-    private bool isJumpDown = false;
-    private bool isWin = false;
-    private int enemyCnt = 0;
-
     public AudioSource audioSource;
     public AudioClip jumpSound;
     public AudioClip damageSound;
     public AudioClip dieSound;
-    private bool jump = false;
+    public string keyWord = "";
 
     void OnGUI()
     {
@@ -48,29 +47,45 @@ public class characterController : MonoBehaviour
             miy = y;
         */
         // Create style for a button
-        GUIStyle myButtonStyle = new GUIStyle(GUI.skin.button);
-        myButtonStyle.fontSize = 30;
-        GUIStyle myLabelStyle = new GUIStyle(GUI.skin.label);
-        myLabelStyle.fontSize = 40;
+        if (myButtonStyle == null)
+        {
+            myButtonStyle = new GUIStyle(GUI.skin.button);
+            myButtonStyle.fontSize = 30;
+            myLabelStyle = new GUIStyle(GUI.skin.label);
+            myLabelStyle.fontSize = 40;
 
-        // Load and set Font
-        Font myFont = (Font)Resources.Load("Fonts/comic", typeof(Font));
-        myButtonStyle.font = myFont;
-        myLabelStyle.font = myFont;
+            // Load and set Font
+            Font myFont = (Font)Resources.Load("Fonts/comic", typeof(Font));
+            myButtonStyle.font = myFont;
+            myLabelStyle.font = myFont;
 
-        // Set color for selected and unselected buttons
-        myButtonStyle.normal.textColor = Color.green;
-        myButtonStyle.hover.textColor = Color.green;
-        myLabelStyle.normal.textColor = Color.green;
-        myLabelStyle.hover.textColor = Color.green;
+            // Set color for selected and unselected buttons
+            myButtonStyle.normal.textColor = Color.green;
+            myButtonStyle.hover.textColor = Color.green;
+            myLabelStyle.normal.textColor = Color.green;
+            myLabelStyle.hover.textColor = Color.green;
+            myLabelStyle.richText = true;
+        }
 
         //GUI.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-        GUI.Box(new Rect(0, 0, 800, 50), "Score: " + score + "/" + ChestMax.ToString() + "  hp:" + hp.ToString(), myLabelStyle);
+        GUI.Box(new Rect(0, 0, 800, 50), "Score: " + score + "/" + LetterMax.ToString() + " hp:" + hp.ToString() + " <color=grey>" + keyWordRich + "</color>", myLabelStyle);
+
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            if (GUI.Button(new Rect(500, 0, 300, 50), "Skip tutorial >>>", myButtonStyle))
+            {
+                Time.timeScale = 1f;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+
+        /*
         if (GUI.Button(new Rect(650, 0, 150, 50), "Restart", myButtonStyle))
         {
             isWin = false;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        */
         if (isWin)
         {
             //myButtonStyle.fontSize = 80;
@@ -79,7 +94,7 @@ public class characterController : MonoBehaviour
             if (GUI.Button(new Rect(700, 300, 200, 70), "Play again", myButtonStyle))
             {
                 isWin = false;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                SceneManager.LoadScene(0);
             }
         }
         /*
@@ -101,14 +116,17 @@ public class characterController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        endLevel = GameObject.FindGameObjectWithTag("Finish");
         pRigidBody = GetComponent<Rigidbody2D>();
-        ChestMax = GameObject.FindGameObjectsWithTag("Chest").Length;
+        LetterMax = GameObject.FindGameObjectsWithTag("Letter").Length;
         anim = GetComponent<Animator>();
         enemyCnt = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        letterFounded = new Dictionary<char, int>();
+        keyWordRich = keyWord;
         //l.useWorldSpace = true;
         //l.SetWidth(0.1f, 0.1f);
     }
-    
+
     /*
     bool IsGrounded()
     {
@@ -121,15 +139,48 @@ public class characterController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log("OnTriggerEnter2D: " + col.gameObject.name);
-        if (col.gameObject.tag == "Chest")
+        if (col.gameObject.tag == "Letter")
         {
             Destroy(col.gameObject);
             score++;
+            //letterFounded.Add(col.gameObject.GetComponent<TextMesh>().text.ToCharArray()[0]);
+            char c = col.gameObject.GetComponent<TextMesh>().text.ToCharArray()[0];
+            if (letterFounded.ContainsKey(c))
+            {
+                letterFounded[c]++;
+            } else
+            {
+                letterFounded.Add(c, 1);
+            }
+            Dictionary<char, int> dict = new Dictionary<char, int>(letterFounded);
+
+            char[] CH = keyWord.ToCharArray();
+            //int i = 0;
+            string s = "";
+            foreach(char ch in CH)
+            {
+                //i++;
+                string s2 = "grey";
+                if (dict.ContainsKey(ch))
+                {
+                    if (dict[ch]>0)
+                    {
+                        s2 = "red";
+                        dict[ch]--;
+                    }
+                }
+                s = s + "<color=" + s2 + ">" + ch + "</color>";
+            }
+            keyWordRich = s;
+            if (score >= LetterMax) {
+                //SpriteRenderer sr = 
+                endLevel.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("DoorOpened");
+            }
         }
 
         if (col.gameObject.tag == "Finish")
         {
-            if (score >= ChestMax) //SceneManager.LoadScene("scene2", LoadSceneMode.Single);
+            if (score >= LetterMax) //SceneManager.LoadScene("scene2", LoadSceneMode.Single);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
@@ -160,7 +211,7 @@ public class characterController : MonoBehaviour
                 spawnScript.instance.SpawnDeathAnimation(new Vector2(col.contacts[0].collider.transform.position.x, col.contacts[0].collider.transform.position.y));
                 Destroy(col.gameObject);
                 enemyCnt--;
-                if (enemyCnt <= 0 && GameObject.FindGameObjectsWithTag("Chest").Length == 0 && GameObject.FindGameObjectsWithTag("Finish").Length == 0)
+                if (enemyCnt <= 0 && GameObject.FindGameObjectsWithTag("Letter").Length == 0 && GameObject.FindGameObjectsWithTag("Finish").Length == 0)
                     isWin = true;
             }
             else

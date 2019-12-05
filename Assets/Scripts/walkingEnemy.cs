@@ -36,14 +36,14 @@ public class walkingEnemy : MonoBehaviour
         //l.SetPosition(1, new Vector2(transform.position.x + direction * 1.5f, transform.position.y - 1.5f));
 
         if ((hit.collider == null && pRigidBody.gravityScale > 0)
-            || (pRigidBody.gravityScale == 0 && transform.position.x >= x_start + range && direction > 0)
-            || (pRigidBody.gravityScale == 0 && transform.position.x <= x_start - range && direction < 0))
+            || (/*pRigidBody.gravityScale == 0 &&*/ transform.position.x >= x_start + range && direction > 0)
+            || (/*pRigidBody.gravityScale == 0 &&*/ transform.position.x <= x_start - range && direction < 0))
             direction *= -1f;
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Wall" || (pRigidBody.gravityScale == 0 && col.gameObject.tag == "Ground"))
+        if (col.gameObject.tag == "Ground" || col.gameObject.tag == "Wall" /*|| (pRigidBody.gravityScale == 0 && col.gameObject.tag == "Ground")*/)
             direction *= -1f;
     }
 }
