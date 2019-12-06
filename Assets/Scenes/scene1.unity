@@ -364,17 +364,17 @@ PrefabInstance:
     - target: {fileID: 3999106488584515713, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
         type: 3}
       propertyPath: m_Name
-      value: Person
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3999106488584515775, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.17
+      value: -12.24
       objectReference: {fileID: 0}
     - target: {fileID: 3999106488584515775, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4
+      value: 3.88
       objectReference: {fileID: 0}
     - target: {fileID: 3999106488584515775, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
         type: 3}
@@ -1730,11 +1730,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6089064504454641297, guid: 5f1b30ecb61c6444995e4b720d991955,
-        type: 3}
-      propertyPath: m_Text
-      value: "\u041F"
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f1b30ecb61c6444995e4b720d991955, type: 3}
 --- !u!1001 &964388502
@@ -2543,7 +2538,7 @@ PrefabInstance:
     - target: {fileID: 7897969012421131923, guid: 01bb5f381bff9de47a5b789b88418258,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.95
+      value: 5.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01bb5f381bff9de47a5b789b88418258, type: 3}
@@ -2829,12 +2824,12 @@ PrefabInstance:
     - target: {fileID: 6146361830503242084, guid: 5f1b30ecb61c6444995e4b720d991955,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 13.6
+      value: 13.84
       objectReference: {fileID: 0}
     - target: {fileID: 6146361830503242084, guid: 5f1b30ecb61c6444995e4b720d991955,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9.98
+      value: 8.73
       objectReference: {fileID: 0}
     - target: {fileID: 6146361830503242084, guid: 5f1b30ecb61c6444995e4b720d991955,
         type: 3}

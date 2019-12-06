@@ -12,6 +12,7 @@ public class meshRendererForeground : MonoBehaviour
     {
         this.gameObject.GetComponent<MeshRenderer>().sortingLayerName = "Foreground";
         this.gameObject.GetComponent<MeshRenderer>().sortingOrder = 50;
+        this.gameObject.GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>().material = Resources.Load("Materials/MyParticleMaterial", typeof(Material)) as Material;
         y_start = transform.position.y;
     }
 

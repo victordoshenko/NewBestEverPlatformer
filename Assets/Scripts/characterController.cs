@@ -20,6 +20,7 @@ public class characterController : MonoBehaviour
     private GameObject endLevel;
     private Dictionary<char, int> letterFounded;
     private string keyWordRich = "";
+    private DateTime startExplode = DateTime.MinValue;
 
     public int hp = 100;
     public float maxSpeed = 10f;
@@ -68,6 +69,12 @@ public class characterController : MonoBehaviour
         }
 
         //GUI.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        var ts = (DateTime.Now - startExplode).TotalSeconds;
+        if (ts < 1)
+            myLabelStyle.fontSize = 50;
+        else
+            myLabelStyle.fontSize = 40;
+
         GUI.Box(new Rect(0, 0, 800, 50), "Score: " + score + "/" + LetterMax.ToString() + " hp:" + hp.ToString() + " <color=grey>" + keyWordRich + "</color>", myLabelStyle);
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -136,15 +143,48 @@ public class characterController : MonoBehaviour
     }
     */
 
+    Material createParticleMaterial()
+    {
+        //Create Particle Shader
+        Shader particleShder = Shader.Find("Particles/Standard Surface");
+
+        //Create new Particle Material
+        Material particleMat = new Material(particleShder);
+
+        Texture particleTexture = null;
+
+        //Find the default "Default-Particle" Texture
+        foreach (Texture pText in Resources.FindObjectsOfTypeAll<Texture>())
+            if (pText.name == "Default-Particle")
+                particleTexture = pText;
+
+        //Add the particle "Default-Particle" Texture to the material
+        particleMat.mainTexture = particleTexture;
+
+        return particleMat;
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log("OnTriggerEnter2D: " + col.gameObject.name);
         if (col.gameObject.tag == "Letter")
         {
-            Destroy(col.gameObject);
+            if (col.gameObject.GetComponent<TextMesh>().text == "")
+                return;
+            char c = col.gameObject.GetComponent<TextMesh>().text.ToCharArray()[0];
+            col.gameObject.GetComponent<TextMesh>().text = "";
+
+            var exp = col.gameObject.GetComponent<ParticleSystem>();
+            //exp.GetComponent<Renderer>().material = Resources.Load("MyMaterial", typeof(Material)) as Material;
+            //createParticleMaterial();
+
+            startExplode = DateTime.Now;
+            exp.Play();
+            Destroy(col.gameObject, exp.main.duration);
+
+            //Destroy(col.gameObject, 1f);
             score++;
             //letterFounded.Add(col.gameObject.GetComponent<TextMesh>().text.ToCharArray()[0]);
-            char c = col.gameObject.GetComponent<TextMesh>().text.ToCharArray()[0];
             if (letterFounded.ContainsKey(c))
             {
                 letterFounded[c]++;
@@ -165,7 +205,7 @@ public class characterController : MonoBehaviour
                 {
                     if (dict[ch]>0)
                     {
-                        s2 = "red";
+                        s2 = "yellow";
                         dict[ch]--;
                     }
                 }
@@ -173,8 +213,10 @@ public class characterController : MonoBehaviour
             }
             keyWordRich = s;
             if (score >= LetterMax) {
-                //SpriteRenderer sr = 
-                endLevel.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("DoorOpened");
+                if (GameObject.FindGameObjectsWithTag("Finish").Length > 0)
+                    endLevel.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("DoorOpened");
+                else
+                    isWin = true;
             }
         }
 
@@ -211,8 +253,8 @@ public class characterController : MonoBehaviour
                 spawnScript.instance.SpawnDeathAnimation(new Vector2(col.contacts[0].collider.transform.position.x, col.contacts[0].collider.transform.position.y));
                 Destroy(col.gameObject);
                 enemyCnt--;
-                if (enemyCnt <= 0 && GameObject.FindGameObjectsWithTag("Letter").Length == 0 && GameObject.FindGameObjectsWithTag("Finish").Length == 0)
-                    isWin = true;
+                //if (enemyCnt <= 0  GameObject.FindGameObjectsWithTag("Letter").Length == 0 && GameObject.FindGameObjectsWithTag("Finish").Length == 0)
+                //    isWin = true;
             }
             else
             {
