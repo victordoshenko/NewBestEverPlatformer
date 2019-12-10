@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3999106488584515726}
   - component: {fileID: 3999106488584515727}
   m_Layer: 0
-  m_Name: Person
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,8 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 57b89dc2e10e33f4d8fb041b1343b3e3, type: 3}
   damageSound: {fileID: 8300000, guid: 35fbad8cdde724f11ba6481f1e64af71, type: 3}
   dieSound: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
-  textTrigger: 
+  letterSound: {fileID: 8300000, guid: 7235bb53cc3305a4ea0462f9bb9e2c65, type: 3}
+  keyWord: 
 --- !u!70 &3999106488584515726
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

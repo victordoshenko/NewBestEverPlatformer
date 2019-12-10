@@ -10,7 +10,7 @@ public class drawRect : MonoBehaviour
     private GameObject lu;
     private GameObject rd;
     private float w;
-    public int timeFlash = 8;
+    public int timeFlash = -1;
 
 /*
     void Start()

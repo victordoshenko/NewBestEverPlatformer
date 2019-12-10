@@ -9,6 +9,7 @@ public class characterController : MonoBehaviour
 {
     private GUIStyle myButtonStyle;
     private GUIStyle myLabelStyle;
+    private GUIStyle myHPStyle;
     private bool facingRight = true;
     private Rigidbody2D pRigidBody;
     private int LetterMax = 0;
@@ -36,6 +37,7 @@ public class characterController : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip damageSound;
     public AudioClip dieSound;
+    public AudioClip letterSound;
     public string keyWord = "";
 
     void OnGUI()
@@ -48,17 +50,24 @@ public class characterController : MonoBehaviour
             miy = y;
         */
         // Create style for a button
+        float ScaleX = (float)(Screen.width) / 800f;
+        float ScaleY = (float)(Screen.height) / 600f;
+        float textHeight = ScaleY * 60;
+
         if (myButtonStyle == null)
         {
             myButtonStyle = new GUIStyle(GUI.skin.button);
             myButtonStyle.fontSize = 30;
             myLabelStyle = new GUIStyle(GUI.skin.label);
             myLabelStyle.fontSize = 40;
+            myHPStyle = new GUIStyle(GUI.skin.label);
+            myHPStyle.fontSize = 40;
 
             // Load and set Font
             Font myFont = (Font)Resources.Load("Fonts/comic", typeof(Font));
             myButtonStyle.font = myFont;
             myLabelStyle.font = myFont;
+            myHPStyle.font = myFont;
 
             // Set color for selected and unselected buttons
             myButtonStyle.normal.textColor = Color.green;
@@ -66,20 +75,56 @@ public class characterController : MonoBehaviour
             myLabelStyle.normal.textColor = Color.green;
             myLabelStyle.hover.textColor = Color.green;
             myLabelStyle.richText = true;
+            myHPStyle.normal.textColor = Color.green;
+            myHPStyle.hover.textColor = Color.green;
+
+            myLabelStyle.fontSize = (int)(myLabelStyle.fontSize * ScaleX);
+            myButtonStyle.fontSize = (int)(myButtonStyle.fontSize * ScaleX);
+            myHPStyle.fontSize = (int)(myHPStyle.fontSize * ScaleX);
         }
 
         //GUI.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         var ts = (DateTime.Now - startExplode).TotalSeconds;
+        /*
         if (ts < 1)
             myLabelStyle.fontSize = 50;
         else
             myLabelStyle.fontSize = 40;
+        */
 
-        GUI.Box(new Rect(0, 0, 800, 50), "Score: " + score + "/" + LetterMax.ToString() + " hp:" + hp.ToString() + " <color=grey>" + keyWordRich + "</color>", myLabelStyle);
+        if (hp >= 70)
+        {
+            myHPStyle.normal.textColor = Color.green;
+            myHPStyle.hover.textColor = Color.green;
+        } else
+        if (hp >= 40)
+        {
+            myHPStyle.normal.textColor = Color.yellow;
+            myHPStyle.hover.textColor = Color.yellow;
+        } else
+        if (hp >= 20)
+        {
+            myHPStyle.normal.textColor = new Color(1.0f, 0.64f, 0.0f);
+            myHPStyle.hover.textColor = new Color(1.0f, 0.64f, 0.0f);
+        } else
+        {
+            myHPStyle.normal.textColor = Color.red;
+            myHPStyle.hover.textColor = Color.red;
+        }
+
+        //██
+        //"Score: " + score + "/" + LetterMax.ToString() + " hp: " + hp.ToString() + 
+
+        GUI.Box(new Rect(0, 0, 300 * ScaleX, textHeight), "████████████████████".Substring(0, hp / 10), myHPStyle);
+        GUI.Box(new Rect(300 * ScaleX, 0, 200 * ScaleX, textHeight), " <color=grey>" +
+            (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "<b>" : "") +
+            keyWordRich +
+            (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "</b>" : "") + "</color>",
+            myLabelStyle);
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            if (GUI.Button(new Rect(500, 0, 300, 50), "Skip tutorial >>>", myButtonStyle))
+            if (GUI.Button(new Rect(500 * ScaleX, 0, 300 * ScaleX, textHeight), "Skip tutorial >>>", myButtonStyle))
             {
                 Time.timeScale = 1f;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -96,9 +141,9 @@ public class characterController : MonoBehaviour
         if (isWin)
         {
             //myButtonStyle.fontSize = 80;
-            GUI.Box(new Rect(450, 300, 250, 100), "Win! :)", myLabelStyle);
+            GUI.Box(new Rect(400 * ScaleX, 250 * ScaleX, 250 * ScaleX, textHeight), "Win! :)", myLabelStyle);
             //myButtonStyle.fontSize = 30;
-            if (GUI.Button(new Rect(700, 300, 200, 70), "Play again", myButtonStyle))
+            if (GUI.Button(new Rect(350 * ScaleX, 300 * ScaleX, 200 * ScaleX, textHeight), "Play again", myButtonStyle))
             {
                 isWin = false;
                 SceneManager.LoadScene(0);
@@ -116,7 +161,7 @@ public class characterController : MonoBehaviour
             //myButtonStyle.fontSize = 40;
             //myButtonStyle.normal.textColor = Color.yellow;
             //myButtonStyle.hover.textColor = Color.yellow;
-            GUI.Box(new Rect(450, 150, 400, 80), "Slow motion mode ON", myLabelStyle);
+            GUI.Box(new Rect(200 * ScaleX, 200 * ScaleX, 400 * ScaleX, textHeight), "Slow motion mode ON", myLabelStyle);
         }
     }
 
@@ -180,6 +225,8 @@ public class characterController : MonoBehaviour
 
             startExplode = DateTime.Now;
             exp.Play();
+            audioSource.clip = letterSound;
+            audioSource.Play();
             Destroy(col.gameObject, exp.main.duration);
 
             //Destroy(col.gameObject, 1f);
@@ -271,8 +318,11 @@ public class characterController : MonoBehaviour
 
     IEnumerator GetDamage(int damage)
     {
-        hp -= damage;
-        if (hp <= 0)
+        if (hp - damage < 0)
+            hp = 0;
+        else
+            hp -= damage;
+        if (hp == 0)
         {
             //Destroy(Person);
             anim.SetBool("Dead", true);
