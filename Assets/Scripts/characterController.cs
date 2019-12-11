@@ -122,12 +122,13 @@ public class characterController : MonoBehaviour
             (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "</b>" : "") + "</color>",
             myLabelStyle);
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             if (GUI.Button(new Rect(500 * ScaleX, 0, 300 * ScaleX, textHeight), "Skip tutorial >>>", myButtonStyle))
             {
                 Time.timeScale = 1f;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //GoToNextLevel();
             }
         }
 
@@ -270,15 +271,24 @@ public class characterController : MonoBehaviour
         if (col.gameObject.tag == "Finish")
         {
             if (score >= LetterMax) //SceneManager.LoadScene("scene2", LoadSceneMode.Single);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                GoToNextLevel();
         }
+    }
+
+    void GoToNextLevel()
+    {
+        PlayerPrefs.SetInt("NextLevel", SceneManager.GetActiveScene().buildIndex + 1);
+        PlayerPrefs.SetString("DoneLevel", keyWord);        
+        SceneManager.LoadScene("levelDone");
+
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     void OnCollisionStay2D(Collision2D col)
     {
         if ((col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyNeverDie") && !damaged)
         {
-            if (col.contacts[0].collider.transform.position.y < transform.position.y - 0.2f && hp > 0) //Hero grounded on the head of monster
+            if (col.contacts[0].collider.transform.position.y < transform.position.y - 0.2f && hp > 0 && col.gameObject.tag == "Enemy") //Hero grounded on the head of monster
             {
                 spawnScript.instance.SpawnDeathAnimation(new Vector2(col.contacts[0].collider.transform.position.x, col.contacts[0].collider.transform.position.y));
                 Destroy(col.gameObject);

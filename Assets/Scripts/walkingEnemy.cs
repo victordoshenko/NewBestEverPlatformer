@@ -6,8 +6,9 @@ public class walkingEnemy : MonoBehaviour
     public float speed = 2f;
     public float range = 7f;
     public int enemyType = 0;
-    private Animator anim;
+    public bool isFly = false;
 
+    private Animator anim;
     float direction = -1f;
     private Rigidbody2D pRigidBody;
     float x_start = 0;
@@ -15,6 +16,8 @@ public class walkingEnemy : MonoBehaviour
     void Awake()
     {
         pRigidBody = GetComponent<Rigidbody2D>();
+        if (isFly)
+            pRigidBody.gravityScale = 0;
         direction = 1 - Random.Range(0, 2) * 2;
         x_start = transform.position.x;
         anim = GetComponent<Animator>();
