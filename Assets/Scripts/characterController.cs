@@ -122,7 +122,7 @@ public class characterController : MonoBehaviour
             (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "</b>" : "") + "</color>",
             myLabelStyle);
 
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             if (GUI.Button(new Rect(500 * ScaleX, 0, 300 * ScaleX, textHeight), "Skip tutorial >>>", myButtonStyle))
             {
