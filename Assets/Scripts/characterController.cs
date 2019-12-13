@@ -39,6 +39,7 @@ public class characterController : MonoBehaviour
     public AudioClip dieSound;
     public AudioClip letterSound;
     public string keyWord = "";
+    public Color letterColor;
 
     void OnGUI()
     {
@@ -57,11 +58,11 @@ public class characterController : MonoBehaviour
         if (myButtonStyle == null)
         {
             myButtonStyle = new GUIStyle(GUI.skin.button);
-            myButtonStyle.fontSize = 30;
+            myButtonStyle.fontSize = 20;
             myLabelStyle = new GUIStyle(GUI.skin.label);
-            myLabelStyle.fontSize = 40;
+            myLabelStyle.fontSize = 30;
             myHPStyle = new GUIStyle(GUI.skin.label);
-            myHPStyle.fontSize = 40;
+            myHPStyle.fontSize = 20;
 
             // Load and set Font
             Font myFont = (Font)Resources.Load("Fonts/comic", typeof(Font));
@@ -172,6 +173,15 @@ public class characterController : MonoBehaviour
         endLevel = GameObject.FindGameObjectWithTag("Finish");
         pRigidBody = GetComponent<Rigidbody2D>();
         LetterMax = GameObject.FindGameObjectsWithTag("Letter").Length;
+
+        foreach (GameObject l in GameObject.FindGameObjectsWithTag("Letter"))
+        {
+            l.GetComponent<TextMesh>().color = letterColor;
+            l.GetComponent<ParticleSystem>().startColor = letterColor;
+
+            //this.gameObject.GetComponent<ParticleSystem>().startColor = this.gameObject.GetComponent<TextMesh>().color;
+        }
+
         anim = GetComponent<Animator>();
         enemyCnt = GameObject.FindGameObjectsWithTag("Enemy").Length;
         letterFounded = new Dictionary<char, int>();
@@ -189,6 +199,7 @@ public class characterController : MonoBehaviour
     }
     */
 
+    /*
     Material createParticleMaterial()
     {
         //Create Particle Shader
@@ -209,6 +220,7 @@ public class characterController : MonoBehaviour
 
         return particleMat;
     }
+    */
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -253,7 +265,8 @@ public class characterController : MonoBehaviour
                 {
                     if (dict[ch]>0)
                     {
-                        s2 = "yellow";
+                        //s2 = "#" + ((int)letterColor.r).ToString("X2") + ((int)letterColor.g).ToString("X2") + ((int)letterColor.b).ToString("X2"); //"yellow";
+                        s2 = ToRGBHex(letterColor);
                         dict[ch]--;
                     }
                 }
@@ -273,6 +286,17 @@ public class characterController : MonoBehaviour
             if (score >= LetterMax) //SceneManager.LoadScene("scene2", LoadSceneMode.Single);
                 GoToNextLevel();
         }
+    }
+
+    public static string ToRGBHex(Color c)
+    {
+        return string.Format("#{0:X2}{1:X2}{2:X2}", ToByte(c.r), ToByte(c.g), ToByte(c.b));
+    }
+
+    private static byte ToByte(float f)
+    {
+        f = Mathf.Clamp01(f);
+        return (byte)(f * 255);
     }
 
     void GoToNextLevel()
@@ -325,7 +349,6 @@ public class characterController : MonoBehaviour
             }
         }
     }
-
     IEnumerator GetDamage(int damage)
     {
         if (hp - damage < 0)
@@ -334,13 +357,9 @@ public class characterController : MonoBehaviour
             hp -= damage;
         if (hp == 0)
         {
-            //Destroy(Person);
             anim.SetBool("Dead", true);
             audioSource.clip = dieSound;
             audioSource.Play();
-            //spawnScript.instance.SpawnDeathAnimation(new Vector2(transform.position.x, transform.position.y));
-            //Person.SetActive(false);
-            //Destroy(anim);
         }
         else
         {
@@ -348,18 +367,19 @@ public class characterController : MonoBehaviour
             audioSource.clip = damageSound;
             audioSource.Play();
         }
-        yield return new WaitForSeconds(1.5f); //(hp <= 0 ? 0.4f : 1.5f);
+        yield return new WaitForSeconds(2.5f); //(hp <= 0 ? 0.4f : 1.5f);
         if (hp <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         damaged = false;
     }
-/*
-    void OnCollisionExit2D(Collision2D collision)
-    {
-    }
-*/
+
+    /*
+        void OnCollisionExit2D(Collision2D collision)
+        {
+        }
+    */
     private void checkJump()
     {
         //bool jumpPressed = SimpleInput.GetKeyDown(KeyCode.W) || SimpleInput.GetKeyDown(KeyCode.UpArrow); //|| isJumpDown;

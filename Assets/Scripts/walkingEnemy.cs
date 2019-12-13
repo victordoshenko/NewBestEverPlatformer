@@ -17,7 +17,10 @@ public class walkingEnemy : MonoBehaviour
     {
         pRigidBody = GetComponent<Rigidbody2D>();
         if (isFly)
+        {
             pRigidBody.gravityScale = 0;
+            pRigidBody.mass = 10000;
+        }
         direction = 1 - Random.Range(0, 2) * 2;
         x_start = transform.position.x;
         anim = GetComponent<Animator>();

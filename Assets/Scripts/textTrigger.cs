@@ -25,11 +25,11 @@ public class textTrigger : MonoBehaviour
             if (myButtonStyle == null)
             {
                 myButtonStyle = new GUIStyle(GUI.skin.button);
-                myButtonStyle.fontSize = 30;
+                myButtonStyle.fontSize = 28;
                 myButtonStyle.wordWrap = true;
                 //myButtonStyle.richText = true;
-                myLabelStyle = new GUIStyle(GUI.skin.label);
-                myLabelStyle.fontSize = 40;
+                myLabelStyle = new GUIStyle(GUI.skin.textArea);
+                myLabelStyle.fontSize = 28;
                 myLabelStyle.normal.textColor = Color.yellow;
                 myLabelStyle.hover.textColor = Color.yellow;
 
@@ -40,7 +40,7 @@ public class textTrigger : MonoBehaviour
             //if (numberTextIntro == 1)
             if (true)
             {
-                GUI.Box(new Rect(Screen.width / 10, Screen.height / 10, Screen.width * 0.8f, Screen.height * 0.8f), modalText, myLabelStyle);
+                GUI.Box(new Rect(Screen.width / 10, Screen.height / 10, Screen.width * 0.8f, Screen.height * 0.6f), modalText, myLabelStyle);
 
                 float x = 0f, y = 0f, w = 0f, h = 0f;
                 if (cam != null)
