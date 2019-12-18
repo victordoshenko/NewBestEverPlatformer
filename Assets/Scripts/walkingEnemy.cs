@@ -26,7 +26,6 @@ public class walkingEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetInteger("EnemyType", enemyType);
     }
-
     //public LineRenderer l;
     //int len = 2;
 
@@ -49,7 +48,7 @@ public class walkingEnemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Ground" || col.gameObject.tag == "Wall" /*|| (pRigidBody.gravityScale == 0 && col.gameObject.tag == "Ground")*/)
+        if (col.gameObject.tag == "Ground" || col.gameObject.tag == "Wall"  || col.gameObject.tag == "Enemy"/*|| (pRigidBody.gravityScale == 0 && col.gameObject.tag == "Ground")*/)
             direction *= -1f;
     }
 }

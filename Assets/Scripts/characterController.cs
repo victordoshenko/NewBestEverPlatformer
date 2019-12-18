@@ -22,13 +22,14 @@ public class characterController : MonoBehaviour
     private Dictionary<char, int> letterFounded;
     private string keyWordRich = "";
     private DateTime startExplode = DateTime.MinValue;
+    //private float jumpMove = 0;
 
     public int hp = 100;
     public float maxSpeed = 10f;
     public float jumpForce = 700f;
     public bool grounded = true;
     public Transform groundCheck;
-    public float groundRadius = 0.85f; //0.2f;
+    public float groundRadius = 0.85f;
     public LayerMask whatIsGround;
     public float move;
     public int score = 0;
@@ -43,14 +44,6 @@ public class characterController : MonoBehaviour
 
     void OnGUI()
     {
-        /*
-        float y = pRigidBody.velocity.y;
-        if (y > may)
-            may = y;
-        if (y < miy)
-            miy = y;
-        */
-        // Create style for a button
         float ScaleX = (float)(Screen.width) / 800f;
         float ScaleY = (float)(Screen.height) / 600f;
         float textHeight = ScaleY * 60;
@@ -64,13 +57,11 @@ public class characterController : MonoBehaviour
             myHPStyle = new GUIStyle(GUI.skin.label);
             myHPStyle.fontSize = 20;
 
-            // Load and set Font
             Font myFont = (Font)Resources.Load("Fonts/comic", typeof(Font));
             myButtonStyle.font = myFont;
             myLabelStyle.font = myFont;
             myHPStyle.font = myFont;
 
-            // Set color for selected and unselected buttons
             myButtonStyle.normal.textColor = Color.green;
             myButtonStyle.hover.textColor = Color.green;
             myLabelStyle.normal.textColor = Color.green;
@@ -84,14 +75,7 @@ public class characterController : MonoBehaviour
             myHPStyle.fontSize = (int)(myHPStyle.fontSize * ScaleX);
         }
 
-        //GUI.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         var ts = (DateTime.Now - startExplode).TotalSeconds;
-        /*
-        if (ts < 1)
-            myLabelStyle.fontSize = 50;
-        else
-            myLabelStyle.fontSize = 40;
-        */
 
         if (hp >= 70)
         {
@@ -113,9 +97,6 @@ public class characterController : MonoBehaviour
             myHPStyle.hover.textColor = Color.red;
         }
 
-        //██
-        //"Score: " + score + "/" + LetterMax.ToString() + " hp: " + hp.ToString() + 
-
         GUI.Box(new Rect(0, 0, 300 * ScaleX, textHeight), "████████████████████".Substring(0, hp / 10), myHPStyle);
         GUI.Box(new Rect(300 * ScaleX, 0, 200 * ScaleX, textHeight), " <color=grey>" +
             (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "<b>" : "") +
@@ -129,45 +110,25 @@ public class characterController : MonoBehaviour
             {
                 Time.timeScale = 1f;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                //GoToNextLevel();
             }
         }
 
-        /*
-        if (GUI.Button(new Rect(650, 0, 150, 50), "Restart", myButtonStyle))
-        {
-            isWin = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        */
         if (isWin)
         {
-            //myButtonStyle.fontSize = 80;
             GUI.Box(new Rect(400 * ScaleX, 250 * ScaleX, 250 * ScaleX, textHeight), "Win! :)", myLabelStyle);
-            //myButtonStyle.fontSize = 30;
             if (GUI.Button(new Rect(350 * ScaleX, 300 * ScaleX, 200 * ScaleX, textHeight), "Play again", myButtonStyle))
             {
                 isWin = false;
                 SceneManager.LoadScene(0);
             }
         }
-        /*
-        if (grounded)
-        {
-            GUI.Box(new Rect(450, 100, 200, 50), "Grounded", myButtonStyle);
-        }
-        */
 
         if (Time.timeScale == 0.3f)
         {
-            //myButtonStyle.fontSize = 40;
-            //myButtonStyle.normal.textColor = Color.yellow;
-            //myButtonStyle.hover.textColor = Color.yellow;
             GUI.Box(new Rect(200 * ScaleX, 200 * ScaleX, 400 * ScaleX, textHeight), "Slow motion mode ON", myLabelStyle);
         }
     }
 
-    // Use this for initialization
     void Start()
     {
         endLevel = GameObject.FindGameObjectWithTag("Finish");
@@ -178,16 +139,12 @@ public class characterController : MonoBehaviour
         {
             l.GetComponent<TextMesh>().color = letterColor;
             l.GetComponent<ParticleSystem>().startColor = letterColor;
-
-            //this.gameObject.GetComponent<ParticleSystem>().startColor = this.gameObject.GetComponent<TextMesh>().color;
         }
 
         anim = GetComponent<Animator>();
         enemyCnt = GameObject.FindGameObjectsWithTag("Enemy").Length;
         letterFounded = new Dictionary<char, int>();
         keyWordRich = keyWord;
-        //l.useWorldSpace = true;
-        //l.SetWidth(0.1f, 0.1f);
     }
 
     /*
@@ -199,32 +156,8 @@ public class characterController : MonoBehaviour
     }
     */
 
-    /*
-    Material createParticleMaterial()
-    {
-        //Create Particle Shader
-        Shader particleShder = Shader.Find("Particles/Standard Surface");
-
-        //Create new Particle Material
-        Material particleMat = new Material(particleShder);
-
-        Texture particleTexture = null;
-
-        //Find the default "Default-Particle" Texture
-        foreach (Texture pText in Resources.FindObjectsOfTypeAll<Texture>())
-            if (pText.name == "Default-Particle")
-                particleTexture = pText;
-
-        //Add the particle "Default-Particle" Texture to the material
-        particleMat.mainTexture = particleTexture;
-
-        return particleMat;
-    }
-    */
-
     void OnTriggerEnter2D(Collider2D col)
     {
-        //Debug.Log("OnTriggerEnter2D: " + col.gameObject.name);
         if (col.gameObject.tag == "Letter")
         {
             if (col.gameObject.GetComponent<TextMesh>().text == "")
@@ -233,8 +166,6 @@ public class characterController : MonoBehaviour
             col.gameObject.GetComponent<TextMesh>().text = "";
 
             var exp = col.gameObject.GetComponent<ParticleSystem>();
-            //exp.GetComponent<Renderer>().material = Resources.Load("MyMaterial", typeof(Material)) as Material;
-            //createParticleMaterial();
 
             startExplode = DateTime.Now;
             exp.Play();
@@ -242,9 +173,7 @@ public class characterController : MonoBehaviour
             audioSource.Play();
             Destroy(col.gameObject, exp.main.duration);
 
-            //Destroy(col.gameObject, 1f);
             score++;
-            //letterFounded.Add(col.gameObject.GetComponent<TextMesh>().text.ToCharArray()[0]);
             if (letterFounded.ContainsKey(c))
             {
                 letterFounded[c]++;
@@ -255,17 +184,14 @@ public class characterController : MonoBehaviour
             Dictionary<char, int> dict = new Dictionary<char, int>(letterFounded);
 
             char[] CH = keyWord.ToCharArray();
-            //int i = 0;
             string s = "";
             foreach(char ch in CH)
             {
-                //i++;
                 string s2 = "grey";
                 if (dict.ContainsKey(ch))
                 {
                     if (dict[ch]>0)
                     {
-                        //s2 = "#" + ((int)letterColor.r).ToString("X2") + ((int)letterColor.g).ToString("X2") + ((int)letterColor.b).ToString("X2"); //"yellow";
                         s2 = ToRGBHex(letterColor);
                         dict[ch]--;
                     }
@@ -283,7 +209,7 @@ public class characterController : MonoBehaviour
 
         if (col.gameObject.tag == "Finish")
         {
-            if (score >= LetterMax) //SceneManager.LoadScene("scene2", LoadSceneMode.Single);
+            if (score >= LetterMax)
                 GoToNextLevel();
         }
     }
@@ -304,8 +230,6 @@ public class characterController : MonoBehaviour
         PlayerPrefs.SetInt("NextLevel", SceneManager.GetActiveScene().buildIndex + 1);
         PlayerPrefs.SetString("DoneLevel", keyWord);        
         SceneManager.LoadScene("levelDone");
-
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     void OnCollisionStay2D(Collision2D col)
@@ -334,8 +258,6 @@ public class characterController : MonoBehaviour
                 spawnScript.instance.SpawnDeathAnimation(new Vector2(col.contacts[0].collider.transform.position.x, col.contacts[0].collider.transform.position.y));
                 Destroy(col.gameObject);
                 enemyCnt--;
-                //if (enemyCnt <= 0  GameObject.FindGameObjectsWithTag("Letter").Length == 0 && GameObject.FindGameObjectsWithTag("Finish").Length == 0)
-                //    isWin = true;
             }
             else
             {
@@ -367,7 +289,7 @@ public class characterController : MonoBehaviour
             audioSource.clip = damageSound;
             audioSource.Play();
         }
-        yield return new WaitForSeconds(2.5f); //(hp <= 0 ? 0.4f : 1.5f);
+        yield return new WaitForSeconds(2.5f);
         if (hp <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -375,75 +297,44 @@ public class characterController : MonoBehaviour
         damaged = false;
     }
 
-    /*
-        void OnCollisionExit2D(Collision2D collision)
-        {
-        }
-    */
     private void checkJump()
     {
-        //bool jumpPressed = SimpleInput.GetKeyDown(KeyCode.W) || SimpleInput.GetKeyDown(KeyCode.UpArrow); //|| isJumpDown;
         if (!damaged && grounded && (SimpleInput.GetKeyDown(KeyCode.W) || SimpleInput.GetKeyDown(KeyCode.UpArrow) || isJumpDown)) //isJumpDown
         {
             jump = true;
+            //jumpMove = move;
             isJumpDown = false;
         }
-        /*
-                else if (jumpPressed)
-                {
-                    Debug.Log("Jump pressed, by can't fly! :(   Grounded = " + grounded.ToString());
-                }
-        */
     }
     public void JumpButtonClick()
     {
-        //checkJump();
         isJumpDown = true;
-        //Debug.Log("JumpButtonClick");
     }
 
     void Update()
     {
-        grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        bool grounded_ = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        //if (grounded_ && !grounded)
+        //    jumpMove = 0;
+        grounded = grounded_;
         checkJump();
-
-        /*
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-        */
         if (SimpleInput.GetKey(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
     }
 
-    //void FixedUpdate()
     void FixedUpdate()
     {
-        //l.SetPosition(0, transform.position);
-        //l.SetPosition(1, transform.position + new Vector3(0, -0.85f, 0));
-
-        //grounded = IsGrounded();
-
-        //checkJump();
-        //move = Input.GetAxis("Horizontal");
-        move = SimpleInput.GetAxis("Horizontal");
+        //if (grounded)
+            move = SimpleInput.GetAxis("Horizontal");
+        //else
+        //    move = jumpMove;
 
         anim.SetFloat("Speed", Mathf.Abs(move));
         anim.SetBool("Ground", grounded);
         anim.SetFloat("vSpeed", pRigidBody.velocity.y);
         anim.SetBool("Damaged", damaged);
-
-        
-        /*
-        if (!damaged && grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
-        {
-            pRigidBody.AddForce(new Vector2(0f, jumpForce));
-        }
-        */
 
         if (!damaged && hp > 0)
             pRigidBody.velocity = new Vector2(move * maxSpeed, pRigidBody.velocity.y);
@@ -453,16 +344,9 @@ public class characterController : MonoBehaviour
         else if (move < 0 && facingRight)
             Flip();
 
-        /*
-        if (SimpleInput.GetKeyDown(KeyCode.W))
-        {
-            Debug.Log("Jump!");
-        }
-        */
         if (jump)
         {
             pRigidBody.AddForce(new Vector2(0f, jumpForce));
-            //isJumpDown = false;
             audioSource.clip = jumpSound;
             audioSource.Play();
             jump = false;
