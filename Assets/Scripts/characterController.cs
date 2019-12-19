@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
@@ -113,6 +114,7 @@ public class characterController : MonoBehaviour
             }
         }
 
+        /*
         if (isWin)
         {
             GUI.Box(new Rect(400 * ScaleX, 250 * ScaleX, 250 * ScaleX, textHeight), "Win! :)", myLabelStyle);
@@ -122,6 +124,7 @@ public class characterController : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
+        */
 
         if (Time.timeScale == 0.3f)
         {
@@ -230,7 +233,8 @@ public class characterController : MonoBehaviour
     void GoToNextLevel()
     {
         PlayerPrefs.SetInt("NextLevel", SceneManager.GetActiveScene().buildIndex + 1);
-        PlayerPrefs.SetString("DoneLevel", keyWord);        
+        PlayerPrefs.SetString("DoneLevel", keyWord);
+        Data.SaveData(SceneManager.GetActiveScene().buildIndex, true, 3);
         SceneManager.LoadScene("levelDone");
     }
 

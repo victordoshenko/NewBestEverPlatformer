@@ -190,7 +190,8 @@ public class levelDone : MonoBehaviour
 
     public void GoToNextLevel()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("NextLevel", 0));
+        //SceneManager.LoadScene(PlayerPrefs.GetInt("NextLevel", 0));
+        SceneManager.LoadScene("SelectLevel");
     }
 
 }

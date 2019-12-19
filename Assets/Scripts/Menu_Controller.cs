@@ -45,13 +45,14 @@ public class Menu_Controller : MonoBehaviour {
 	
 	public void PlayGame () {
 		_audioSource.PlayOneShot(_audioClip);
-		UnityEngine.SceneManagement.SceneManager.LoadScene(PlayerPrefs.GetString("_LastScene"));
-	}
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(PlayerPrefs.GetString("_LastScene"));
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SelectLevel");
+    }
 
-    public void PlayGame0()
+    public void PlayAbout()
     {
         _audioSource.PlayOneShot(_audioClip);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("scene1");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("AboutScene");
     }
 
     public void Mute () {
