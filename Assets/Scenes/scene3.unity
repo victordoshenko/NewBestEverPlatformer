@@ -1404,16 +1404,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: range
@@ -1427,6 +1417,16 @@ PrefabInstance:
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: isFly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2022,7 +2022,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 410152fb40c026c4fad4d7de5692f000, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2877,11 +2877,31 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1541647194}
+    - target: {fileID: 6041151586961376875, guid: edaccf60249e1be4ea49c6a9097986b3,
+        type: 3}
+      propertyPath: parallaxEffect_y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041151586961376875, guid: edaccf60249e1be4ea49c6a9097986b3,
+        type: 3}
+      propertyPath: parallaxEffect_x
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6041151586837010516, guid: edaccf60249e1be4ea49c6a9097986b3,
         type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 1541647194}
+    - target: {fileID: 6041151586837010516, guid: edaccf60249e1be4ea49c6a9097986b3,
+        type: 3}
+      propertyPath: parallaxEffect_y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041151586837010516, guid: edaccf60249e1be4ea49c6a9097986b3,
+        type: 3}
+      propertyPath: parallaxEffect_x
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5347328182280796655, guid: edaccf60249e1be4ea49c6a9097986b3,
         type: 3}
       propertyPath: m_LocalPosition.y

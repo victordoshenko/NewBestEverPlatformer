@@ -104,7 +104,7 @@ public class characterController : MonoBehaviour
             (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "</b>" : "") + "</color>",
             myLabelStyle);
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().name == "scene1")
         {
             if (GUI.Button(new Rect(500 * ScaleX, 0, 300 * ScaleX, textHeight), "Skip tutorial >>>", myButtonStyle))
             {
@@ -131,6 +131,8 @@ public class characterController : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetString("_LastScene", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.ToString());
+
         endLevel = GameObject.FindGameObjectWithTag("Finish");
         pRigidBody = GetComponent<Rigidbody2D>();
         LetterMax = GameObject.FindGameObjectsWithTag("Letter").Length;
@@ -321,6 +323,18 @@ public class characterController : MonoBehaviour
         if (SimpleInput.GetKey(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (SimpleInput.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameMenu");
+            #if !UNITY_EDITOR
+            //Application.Quit();            
+            #endif
+            
+            #if UNITY_EDITOR
+            //UnityEditor.EditorApplication.isPlaying = false;
+            #endif
         }
     }
 

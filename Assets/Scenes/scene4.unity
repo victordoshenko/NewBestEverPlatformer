@@ -435,11 +435,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: enemyType
@@ -454,6 +449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdf3bc5484e34c14a83155ed05ecade5, type: 3}
@@ -856,7 +856,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 23f3b529b1c7eeb47bbb7b237092e846, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1436,11 +1436,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: enemyType
@@ -1455,6 +1450,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdf3bc5484e34c14a83155ed05ecade5, type: 3}
@@ -2009,11 +2009,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: enemyType
@@ -2032,6 +2027,11 @@ PrefabInstance:
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: isFly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2153,11 +2153,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: enemyType
@@ -2176,6 +2171,11 @@ PrefabInstance:
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: isFly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2752,11 +2752,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: enemyType
@@ -2771,6 +2766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdf3bc5484e34c14a83155ed05ecade5, type: 3}
@@ -2891,11 +2891,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: enemyType
@@ -2914,6 +2909,11 @@ PrefabInstance:
     - target: {fileID: 7642249107027842270, guid: cdf3bc5484e34c14a83155ed05ecade5,
         type: 3}
       propertyPath: isFly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642249107027842269, guid: cdf3bc5484e34c14a83155ed05ecade5,
+        type: 3}
+      propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
