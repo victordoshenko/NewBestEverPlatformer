@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
@@ -234,7 +233,8 @@ public class characterController : MonoBehaviour
     {
         PlayerPrefs.SetInt("NextLevel", SceneManager.GetActiveScene().buildIndex + 1);
         PlayerPrefs.SetString("DoneLevel", keyWord);
-        Data.SaveData(SceneManager.GetActiveScene().buildIndex, true, 3);
+        //Data.SaveData(SceneManager.GetActiveScene().buildIndex, true, 3);
+        SingleLevel.PressStarsButton(SceneManager.GetActiveScene().buildIndex - 1, 3); //....
         SceneManager.LoadScene("levelDone");
     }
 
