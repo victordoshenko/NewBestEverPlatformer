@@ -649,6 +649,14 @@ PrefabInstance:
       propertyPath: letterColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3999106488584515714, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
+        type: 3}
+      propertyPath: DoneLevelDescr
+      value: "Model\u2013view\u2013presenter (MVP) is a derivation of the model\u2013view\u2013controller
+        (MVC) architectural pattern, and is used mostly for building user interfaces.
+        In MVP, the presenter assumes the functionality of the \"middle-man\". In
+        MVP, all presentation logic is pushed to the presenter."
+      objectReference: {fileID: 0}
     - target: {fileID: 4450223914947591448, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
         type: 3}
       propertyPath: m_RootOrder

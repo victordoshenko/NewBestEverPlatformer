@@ -41,6 +41,7 @@ public class characterController : MonoBehaviour
     public AudioClip letterSound;
     public string keyWord = "";
     public Color letterColor;
+    public string DoneLevelDescr = "";
 
     void OnGUI()
     {
@@ -233,8 +234,8 @@ public class characterController : MonoBehaviour
     {
         PlayerPrefs.SetInt("NextLevel", SceneManager.GetActiveScene().buildIndex + 1);
         PlayerPrefs.SetString("DoneLevel", keyWord);
-        //Data.SaveData(SceneManager.GetActiveScene().buildIndex, true, 3);
-        SingleLevel.PressStarsButton(SceneManager.GetActiveScene().buildIndex - 1, 3); //....
+        PlayerPrefs.SetString("DoneLevelDescr", DoneLevelDescr);
+        SingleLevel.PressStarsButton(SceneManager.GetActiveScene().buildIndex - 1, 3);
         SceneManager.LoadScene("levelDone");
     }
 

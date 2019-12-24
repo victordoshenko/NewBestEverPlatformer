@@ -24,6 +24,7 @@ public class levelDone : MonoBehaviour
 	public GUIAnimFREE m_Title2;
 	public GUIAnimFREE m_Dialog1;
     public GameObject m_TitleLevel;
+    public GameObject m_TitleLevelDescr;
 
     #endregion // Variables
 
@@ -50,6 +51,7 @@ public class levelDone : MonoBehaviour
 	void Start ()
 	{
         m_TitleLevel.GetComponent<UnityEngine.UI.Text>().text = PlayerPrefs.GetString("DoneLevel");
+        m_TitleLevelDescr.GetComponent<UnityEngine.UI.Text>().text = PlayerPrefs.GetString("DoneLevelDescr");
 
         // MoveIn m_Title2
         StartCoroutine(MoveInTitleGameObjects());

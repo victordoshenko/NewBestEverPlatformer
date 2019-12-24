@@ -451,6 +451,11 @@ PrefabInstance:
       propertyPath: keyWord
       value: "\u041F\u0420\u0418\u0412\u0415\u0422"
       objectReference: {fileID: 0}
+    - target: {fileID: 3999106488584515714, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
+        type: 3}
+      propertyPath: DoneLevelDescr
+      value: "\u041E\u0431\u0443\u0447\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u043E!"
+      objectReference: {fileID: 0}
     - target: {fileID: 4450223914947591448, guid: 4dfa78fb6a7f1844ea95225b5fed7226,
         type: 3}
       propertyPath: m_RootOrder
