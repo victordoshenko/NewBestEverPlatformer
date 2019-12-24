@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,7 +14,6 @@ public class TW_MultiStrings_Regular_Editor : Editor
     private int indexOfString;
     private static string[] PointerSymbols = { "None", "<", "_", "|", ">" };
     private TW_MultiStrings_Regular TW_MS_RegularScript;
-
 
     private void Awake() {
         TW_MS_RegularScript = (TW_MultiStrings_Regular)target;
@@ -72,16 +72,21 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
     private bool start;
     private List<int> n_l_list;
     private static string[] PointerSymbols = { "None", "<", "_", "|", ">" };
+    private AudioSource audioSource;
 
     void Start ()
     {
         MultiStrings[0] = gameObject.GetComponent<Text>().text;
         ORIGINAL_TEXT = gameObject.GetComponent<Text>().text;
         gameObject.GetComponent<Text>().text = "";
+        audioSource = gameObject.GetComponent<AudioSource>();
+        StartCoroutine(StartSoundTypeWrite());
+
         if (LaunchOnStart)
         {
             StartTypewriter();
         }
+
     }
 	
 	void Update () {
@@ -100,6 +105,11 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
     public void SkipTypewriter()
     {
         сharIndex = ORIGINAL_TEXT.Length - 1;
+    }
+
+    public void NextScreen()
+    {
+        SceneManager.LoadScene("SelectLevel");
     }
 
     public void NextString()
@@ -135,6 +145,12 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
         }
     }
 
+    private IEnumerator StartSoundTypeWrite()
+    {
+        yield return new WaitForSeconds(0.4f);
+        audioSource.Play();
+    }
+
     private IEnumerator MakeTypewriterText(string ORIGINAL, string POINTER)
     {
         start = false;
@@ -148,7 +164,8 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
             yield return new WaitForSeconds(0.01f);
             CharIndexPlus();
             start = true;
-        }
+        } else
+            audioSource.Stop();
     }
 
     private IEnumerator MakeTypewriterTextWithNewLine(string ORIGINAL, string POINTER, List<int> List)
@@ -165,7 +182,8 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
             yield return new WaitForSeconds(0.01f);
             CharIndexPlus();
             start = true;
-        }
+        } else
+            audioSource.Stop();
     }
 
     private List<int> MakeList(string S)
