@@ -15,6 +15,7 @@ public class textTrigger : MonoBehaviour
     public GameObject ButtonLU;
     public GameObject ButtonRD;
     public string textTriggerMessage = "";
+    public string textTriggerMessageRus = "";
     public Canvas Canvas;
     public Camera cam;
 
@@ -106,6 +107,11 @@ public class textTrigger : MonoBehaviour
 
     void Start()
     {
+        if (Settings_Manager.Language == SystemLanguage.Russian)
+        {
+            textTriggerMessage = textTriggerMessageRus;
+        }
+
         //cam = GetComponent<Camera>();
         //LineRenderer l = gameObject.AddComponent<LineRenderer>();
         //l.sortingOrder = 10;

@@ -140,10 +140,39 @@ public class characterController : MonoBehaviour
         pRigidBody = GetComponent<Rigidbody2D>();
         LetterMax = GameObject.FindGameObjectsWithTag("Letter").Length;
 
+        if (Settings_Manager.Language != SystemLanguage.Russian && SceneManager.GetActiveScene().name == "scene1")
+        {
+            keyWord = "HELLO!";
+            DoneLevelDescr = "Education completed!";
+        }
+
         foreach (GameObject l in GameObject.FindGameObjectsWithTag("Letter"))
         {
             l.GetComponent<TextMesh>().color = letterColor;
             l.GetComponent<ParticleSystem>().startColor = letterColor;
+            if (Settings_Manager.Language != SystemLanguage.Russian && SceneManager.GetActiveScene().name == "scene1")
+            {
+                switch (l.GetComponent<TextMesh>().text) {
+                    case "П":
+                        l.GetComponent<TextMesh>().text = "H";
+                        break;
+                    case "Р":
+                        l.GetComponent<TextMesh>().text = "E";
+                        break;
+                    case "И":
+                        l.GetComponent<TextMesh>().text = "L";
+                        break;
+                    case "В":
+                        l.GetComponent<TextMesh>().text = "L";
+                        break;
+                    case "Е":
+                        l.GetComponent<TextMesh>().text = "O";
+                        break;
+                    case "Т":
+                        l.GetComponent<TextMesh>().text = "!";
+                        break;
+                }
+            }
         }
 
         anim = GetComponent<Animator>();
