@@ -10,4 +10,9 @@ public class ReturnButton_Script : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             SceneManager.LoadScene("GameMenu");
     }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("GameMenu");
+    }
 }

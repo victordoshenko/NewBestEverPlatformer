@@ -110,7 +110,8 @@ public class characterController : MonoBehaviour
             if (GUI.Button(new Rect(500 * ScaleX, 0, 300 * ScaleX, textHeight), "Skip tutorial >>>", myButtonStyle))
             {
                 Time.timeScale = 1f;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                GoToNextLevel();
             }
         }
 
