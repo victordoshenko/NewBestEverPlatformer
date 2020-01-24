@@ -42,6 +42,7 @@ public class characterController : MonoBehaviour
     public string keyWord = "";
     public Color letterColor;
     public string DoneLevelDescr = "";
+    public float Gravity;
 
     void OnGUI()
     {
@@ -99,7 +100,7 @@ public class characterController : MonoBehaviour
         }
 
         GUI.Box(new Rect(0, 0, 300 * ScaleX, textHeight), "████████████████████".Substring(0, hp / 10), myHPStyle);
-        GUI.Box(new Rect(300 * ScaleX, 0, 200 * ScaleX, textHeight), " <color=grey>" +
+        GUI.Box(new Rect(300 * ScaleX, 0, 250 * ScaleX, textHeight), " <color=grey>" +
             (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "<b>" : "") +
             keyWordRich +
             (ts < 1 && (DateTime.Now.Millisecond / 100) % 2 == 0 ? "</b>" : "") + "</color>",
@@ -135,6 +136,8 @@ public class characterController : MonoBehaviour
 
     void Start()
     {
+        Physics2D.gravity = new Vector3(0, -Gravity, 0);
+
         PlayerPrefs.SetString("_LastScene", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.ToString());
 
         endLevel = GameObject.FindGameObjectWithTag("Finish");

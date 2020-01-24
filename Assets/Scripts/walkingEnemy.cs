@@ -35,7 +35,6 @@ public class walkingEnemy : MonoBehaviour
         LayerMask maskGround = LayerMask.GetMask("Ground");
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + direction * 0.5f, transform.position.y), Vector2.down, 1f, maskGround);
 
-
         if ((hit.collider == null && pRigidBody.gravityScale > 0)
             || (transform.position.x >= x_start + range && direction > 0)
             || (transform.position.x <= x_start - range && direction < 0))
@@ -44,7 +43,7 @@ public class walkingEnemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Ground" || col.gameObject.tag == "Wall"  || col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Ground" || col.gameObject.tag == "Wall"  || col.gameObject.tag == "Enemy" || col.gameObject.layer == 8)
             direction *= -1f;
     }
 }

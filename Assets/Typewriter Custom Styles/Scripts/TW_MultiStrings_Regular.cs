@@ -65,6 +65,8 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
     [HideInInspector]
     public int pointer=0;
     public string ORIGINAL_TEXT;
+    public string ORIGINAL_TEXT_RUS;
+    public string ORIGINAL_TEXT_ENG;
 
     private float time = 0f;
     private int сharIndex = 0;
@@ -77,8 +79,9 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
     void Start ()
     {
         gameObject.GetComponent<Text>().text = (Settings_Manager.Language == SystemLanguage.Russian
-                                                ? "Отработав десять лет программистом в банке, ты научился проектировать базы данных, создавать сложные отчеты, стал настоящим виртуозом в области банковских систем. Зарплата выросла выше рынка, ты хорошо устроился в своём тёплом гнёздышке и, казалось бы, жизнь удалась... Но однажды тебе сообщают, что банк закрывается, и через 1 год тебе придется работать в новом месте. В каком именно - ты должен выбрать сам. Осмотревшись на рынке, ты понимаешь, что хочешь стать iOS разработчиком. Купив свой первый mac mini, ты приступил к изучению новых технологий. Для того, чтобы устроиться Junior разработчиком, тебе понадобится изучить всего лишь: SWIFT, MVC, MVP, MVVM, VIPER, SOLID, XML, JSON, GIT, ENUMS, UIKIT, GCD, KVC, KVO, AUTOLAYOUT, а так же иметь не менее года опыта коммерческой разработки. Зачем с такими навыками работать на дядю - остается загадкой. Возможно, всё дело в бесплатном кофе и печенюшках, от которых ты отказаться не в силах. Пройдя свой первый курс по iOS от компании Шмандекс, ты понял, что знаний пока ещё явно не достаточно и нужно дальше осваивать новые технологии. Засучив рукава, ты смело пускаешься на встречу приключениям!" 
-                                                : "After working for ten years as a programmer in a bank, you learned how to design databases, create complex reports, and became a real virtuoso in the field of banking systems. The salary has grown above the market, you are well settled in your warm nest and, it would seem, your life has been successful ... But once you are informed that the bank is closing, and after 1 year you will have to work in a new place. Which one - you have to choose yourself. Looking around the market, you realize that you want to become an iOS developer. Having bought your first mac mini, you set about exploring new technologies. In order to get a Junior developer, you only need to learn: SWIFT, MVC, MVP, MVVM, VIPER, SOLID, XML, JSON, GIT, ENUMS, UIKIT, GCD, KVC, KVO, AUTOLAYOUT, as well as have at least years of commercial development experience. Why you should not work for yourself with such an experience remains a mystery. Perhaps the whole thing is free coffee and cookies, which you can’t refuse. Having passed your first iOS course from Schmandex, you realized that knowledge is still clearly not enough and you need to further develop new technologies. Rolling up your sleeves, you boldly embark on an adventure!");        
+                                                ? ORIGINAL_TEXT_RUS //"Отработав десять лет программистом в банке, ты научился проектировать базы данных, создавать сложные отчеты, стал настоящим виртуозом в области банковских систем. Зарплата выросла выше рынка, ты хорошо устроился в своём тёплом гнёздышке и, казалось бы, жизнь удалась... Но однажды тебе сообщают, что банк закрывается, и через 1 год тебе придется работать в новом месте. В каком именно - ты должен выбрать сам. Осмотревшись на рынке, ты понимаешь, что хочешь стать iOS разработчиком. Купив свой первый mac mini, ты приступил к изучению новых технологий. Для того, чтобы устроиться Junior разработчиком, тебе понадобится изучить всего лишь: SWIFT, MVC, MVP, MVVM, VIPER, SOLID, XML, JSON, GIT, ENUMS, UIKIT, GCD, KVC, KVO, AUTOLAYOUT, а так же иметь не менее года опыта коммерческой разработки. Зачем с такими навыками работать на дядю - остается загадкой. Возможно, всё дело в бесплатном кофе и печенюшках, от которых ты отказаться не в силах. Пройдя свой первый курс по iOS от компании Шмандекс, ты понял, что знаний пока ещё явно не достаточно и нужно дальше осваивать новые технологии. Засучив рукава, ты смело пускаешься на встречу приключениям!" 
+                                                : ORIGINAL_TEXT_ENG //"After working for ten years as a programmer in a bank, you learned how to design databases, create complex reports, and became a real virtuoso in the field of banking systems. The salary has grown above the market, you are well settled in your warm nest and, it would seem, your life has been successful ... But once you are informed that the bank is closing, and after 1 year you will have to work in a new place. Which one - you have to choose yourself. Looking around the market, you realize that you want to become an iOS developer. Having bought your first mac mini, you set about exploring new technologies. In order to get a Junior developer, you only need to learn: SWIFT, MVC, MVP, MVVM, VIPER, SOLID, XML, JSON, GIT, ENUMS, UIKIT, GCD, KVC, KVO, AUTOLAYOUT, as well as have at least years of commercial development experience. Why you should not work for yourself with such an experience remains a mystery. Perhaps the whole thing is free coffee and cookies, which you can’t refuse. Having passed your first iOS course from Schmandex, you realized that knowledge is still clearly not enough and you need to further develop new technologies. Rolling up your sleeves, you boldly embark on an adventure!"
+                                                );
         MultiStrings[0] = gameObject.GetComponent<Text>().text;
         ORIGINAL_TEXT = gameObject.GetComponent<Text>().text;
         gameObject.GetComponent<Text>().text = "";
@@ -113,6 +116,11 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
     public void NextScreen()
     {
         SceneManager.LoadScene("SelectLevel");
+    }
+
+    public void GoGameMenu()
+    {
+        SceneManager.LoadScene("GameMenu");
     }
 
     public void NextString()

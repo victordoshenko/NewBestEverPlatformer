@@ -169,6 +169,8 @@ MonoBehaviour:
   letterSound: {fileID: 8300000, guid: 7235bb53cc3305a4ea0462f9bb9e2c65, type: 3}
   keyWord: 
   letterColor: {r: 1, g: 0.8838249, b: 0, a: 1}
+  DoneLevelDescr: 
+  Gravity: 30
 --- !u!70 &3999106488584515726
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

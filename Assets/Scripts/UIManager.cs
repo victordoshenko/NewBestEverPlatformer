@@ -24,6 +24,6 @@ public class UIManager : MonoBehaviour
             sum += PlayerPrefs.GetInt("Lv" + i.ToString());//Add the level 1 stars number, level 2 stars number.....
         }
 
-        starsText.text = sum + "/" + 12;
+        starsText.text = sum + "/" + 48;
     }
 }

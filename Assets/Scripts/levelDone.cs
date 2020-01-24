@@ -193,7 +193,9 @@ public class levelDone : MonoBehaviour
     public void GoToNextLevel()
     {
         //SceneManager.LoadScene(PlayerPrefs.GetInt("NextLevel", 0));
-        SceneManager.LoadScene("SelectLevel");
+        if (PlayerPrefs.GetString("_LastScene") == "scene16")
+            SceneManager.LoadScene("gameDone");
+        else 
+            SceneManager.LoadScene("SelectLevel");
     }
-
 }
