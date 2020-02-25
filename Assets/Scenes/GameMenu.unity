@@ -899,7 +899,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\xA9 Copyright 2019-2020 Kusyandr Inc. All Rights Reserved."
+  m_Text: "\xA9 Copyright Kusyandr Inc. All Rights Reserved."
 --- !u!222 &437896630
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1284,6 +1284,7 @@ MonoBehaviour:
   - {fileID: 1973531374}
   _audioClip: {fileID: 8300000, guid: 8c3bb00127444c243b4fd6ea295a7d6f, type: 3}
   _audioSource: {fileID: 651494101}
+  m_CopyRight: {fileID: 437896629}
 --- !u!4 &651494103
 Transform:
   m_ObjectHideFlags: 0

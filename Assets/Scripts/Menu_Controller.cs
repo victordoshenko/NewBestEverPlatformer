@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Menu_Controller : MonoBehaviour {
 
@@ -15,9 +16,13 @@ public class Menu_Controller : MonoBehaviour {
 	public AudioClip _audioClip;
 	[Tooltip("_audioSource defines the Audio Source component in this scene.")]
 	public AudioSource _audioSource;
-	
-	void Awake () {
+    public Text m_CopyRight;
+
+    void Awake () {
         Settings_Manager.Language = Application.systemLanguage;
+
+        m_CopyRight.text = "© Copyright " + DateTime.Now.Year.ToString() + " Kusyandr Inc. All Rights Reserved.";
+
         if (Settings_Manager.Language != SystemLanguage.Russian)
             Settings_Manager.Language = SystemLanguage.English;
 

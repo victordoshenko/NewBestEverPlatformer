@@ -3,6 +3,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
+using UnityEngine.Monetization;
 
 #endregion // Namespaces
 
@@ -26,6 +28,14 @@ public class levelDone : MonoBehaviour
     public GameObject m_TitleLevel;
     public GameObject m_TitleLevelDescr;
 
+#if UNITY_IOS
+    private string gameId = "3483659";
+#elif UNITY_ANDROID
+    private string gameId = "3483658";
+#endif
+    public string placementId = "video";
+    bool testMode = false;
+
     #endregion // Variables
 
     // ########################################
@@ -34,6 +44,27 @@ public class levelDone : MonoBehaviour
     // ########################################
 
     #region MonoBehaviour
+
+    public void ShowAd()
+    {
+        StartCoroutine(ShowAdWhenReady());
+    }
+
+    private IEnumerator ShowAdWhenReady()
+    {
+        while (!Monetization.IsReady(placementId))
+        {
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        ShowAdPlacementContent ad = null;
+        ad = Monetization.GetPlacementContent(placementId) as ShowAdPlacementContent;
+
+        if (ad != null)
+        {
+            ad.Show();
+        }
+    }
 
     // Awake is called when the script instance is being loaded.
     // http://docs.unity3d.com/ScriptReference/MonoBehaviour.Awake.html
@@ -50,6 +81,8 @@ public class levelDone : MonoBehaviour
 	// http://docs.unity3d.com/ScriptReference/MonoBehaviour.Start.html
 	void Start ()
 	{
+        Monetization.Initialize(gameId, testMode);
+
         m_TitleLevel.GetComponent<UnityEngine.UI.Text>().text = PlayerPrefs.GetString("DoneLevel");
         m_TitleLevelDescr.GetComponent<UnityEngine.UI.Text>().text = PlayerPrefs.GetString("DoneLevelDescr");
 
@@ -195,7 +228,10 @@ public class levelDone : MonoBehaviour
         //SceneManager.LoadScene(PlayerPrefs.GetInt("NextLevel", 0));
         if (PlayerPrefs.GetString("_LastScene") == "scene16")
             SceneManager.LoadScene("gameDone");
-        else 
+        else
+        {
+            ShowAd();
             SceneManager.LoadScene("SelectLevel");
+        }
     }
 }
