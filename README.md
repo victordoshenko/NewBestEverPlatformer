@@ -1,5 +1,5 @@
 *** Wild Developer ***
 My second mobile game platformer on Unity <br>
-App Store [https://apps.apple.com/us/app/wild-developer/id1492903249](https://apps.apple.com/us/app/wild-developer/id1492903249)
-Playmarket [https://play.google.com/store/apps/details?id=com.Kusyandr.NewBestEverPlatformer](https://play.google.com/store/apps/details?id=com.Kusyandr.NewBestEverPlatformer)
+App Store [https://apps.apple.com/us/app/wild-developer/id1492903249](https://apps.apple.com/us/app/wild-developer/id1492903249) <br>
+Playmarket [https://play.google.com/store/apps/details?id=com.Kusyandr.NewBestEverPlatformer](https://play.google.com/store/apps/details?id=com.Kusyandr.NewBestEverPlatformer)<br>
 ![](https://github.com/victordoshenko/NewBestEverPlatformer/blob/master/Assets/Resources/Icons/Ico1024x500.png)
